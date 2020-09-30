@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 4000;
-    Button btn;
+    //Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,12 @@ public class MainActivity extends AppCompatActivity {
             }
         }, SPLASH_TIME_OUT);
 
-        btn = (Button) findViewById(R.id.MainButton);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MainMenuActivity.class));
-            }
-        });
+        //btn = (Button) findViewById(R.id.MainButton);
+        // btn.setOnClickListener(new View.OnClickListener() {
+        //      @Override
+        //    public void onClick(View v) {
+        //        startActivity(new Intent(MainActivity.this, MainMenuActivity.class));
+        //    }
+        //});
     }
 }
