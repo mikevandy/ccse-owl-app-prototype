@@ -7,33 +7,96 @@
     tools:context=".MainMenuActivity"
     android:background="@drawable/ksu">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
-        android:layout_marginTop="597dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginRight="49dp"
-        android:layout_marginBottom="87dp"
-        android:text="Current Events"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="142dp"
-        android:layout_height="47dp"
-        android:layout_marginTop="597dp"
-        android:layout_marginEnd="43dp"
-        android:layout_marginRight="43dp"
-        android:layout_marginBottom="87dp"
-        android:text="My Events"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="333dp"
+        android:layout_height="639dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/button"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+            <TextView
+                android:id="@+id/FeatureEvent"
+                android:layout_width="match_parent"
+                android:layout_height="43dp"
+                android:paddingLeft="70dp"
+                android:text="Featured Event"
+                android:textColor="#FFFFFF"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/imageButton8"
+                android:layout_width="300dp"
+                android:layout_height="163dp"
+                tools:srcCompat="@drawable/campus"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="148dp"
+                    android:layout_height="363dp"
+                    android:orientation="vertical"
+                    android:paddingTop="100dp">
+
+                    <TextView
+                        android:id="@+id/EventList"
+                        android:layout_width="164dp"
+                        android:layout_height="53dp"
+                        android:text="Event List"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold"/>
+
+                    <ImageButton
+                        android:id="@+id/imageButton10"
+                        android:layout_width="143dp"
+                        android:layout_height="157dp"
+                        tools:srcCompat="@drawable/students"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="148dp"
+                    android:layout_height="363dp"
+                    android:orientation="vertical"
+                    android:paddingTop="100dp">
+
+                    <TextView
+                        android:id="@+id/MyEvents"
+                        android:layout_width="164dp"
+                        android:layout_height="53dp"
+                        android:text="My Events"
+                        android:textColor="#FFFFFF"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton9"
+                        android:layout_width="match_parent"
+                        android:layout_height="157dp"
+                        tools:srcCompat="@drawable/students"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </HorizontalScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
