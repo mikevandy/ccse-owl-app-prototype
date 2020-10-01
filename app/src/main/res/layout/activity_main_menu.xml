@@ -40,7 +40,7 @@
                 android:textStyle="bold" />
 
             <ImageButton
-                android:id="@+id/imageButton8"
+                android:id="@+id/featuredEventBtn"
                 android:layout_width="300dp"
                 android:layout_height="163dp"
                 tools:srcCompat="@drawable/campus"/>
@@ -66,7 +66,7 @@
                         android:textStyle="bold"/>
 
                     <ImageButton
-                        android:id="@+id/imageButton10"
+                        android:id="@+id/eventListBtn"
                         android:layout_width="143dp"
                         android:layout_height="157dp"
                         tools:srcCompat="@drawable/students"/>
@@ -88,7 +88,7 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-                        android:id="@+id/imageButton9"
+                        android:id="@+id/myEventBtn"
                         android:layout_width="match_parent"
                         android:layout_height="157dp"
                         tools:srcCompat="@drawable/students"/>

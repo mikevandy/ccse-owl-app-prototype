@@ -10,9 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".EventListDetailActivity"></activity>
-        <activity android:name=".MainActivity2" />
         <activity android:name=".EventListActivity" />
-        <activity android:name=".MainMenuActivity" />
+        <activity android:name="com.ccseevents.owl.MainMenuActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
