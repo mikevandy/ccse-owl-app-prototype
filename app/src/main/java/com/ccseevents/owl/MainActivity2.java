@@ -6,16 +6,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-public class EventListActivity extends AppCompatActivity {
+public class MainActivity2 extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_list);
+        setContentView(R.layout.activity_main2);
     }
-    public void goToEventListDetail(View view) {
-        Intent intent = new Intent(this, EventListDetailActivity.class);
+    public void goToEventList(View view) {
+        Intent intent = new Intent(this, EventListActivity.class);
 
         startActivity(intent);
     }
+
+
 }

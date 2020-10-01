@@ -15,7 +15,7 @@ public class MainMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        buttonEventList = (Button) findViewById(R.id.button1);
+  //    buttonEventList = (Button) findViewById(R.id.button1); will not compile    error: cannot find symbol   buttonEventList = (Button) findViewById(R.id.button1);
         buttonEventList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
