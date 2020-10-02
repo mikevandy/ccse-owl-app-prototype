@@ -25,5 +25,12 @@ public class MainMenuActivity extends AppCompatActivity {
                 startActivity(new Intent(MainMenuActivity.this, EventListActivity.class));
             }
         });
+
+        MyEvents.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainMenuActivity.this, MyEventsActivity.class));
+            }
+        });
     }
 }
