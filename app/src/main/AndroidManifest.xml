@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EventListDetailActivity"></activity>
+        <activity android:name=".EventDetailActivity"></activity>
         <activity android:name=".EventListActivity" />
         <activity android:name=".MyEventsActivity" />
         <activity android:name="com.ccseevents.owl.MainMenuActivity" />

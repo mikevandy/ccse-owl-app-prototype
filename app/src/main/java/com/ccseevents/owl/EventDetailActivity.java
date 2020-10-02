@@ -3,19 +3,16 @@ package com.ccseevents.owl;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
-public class EventListActivity extends AppCompatActivity {
+public class EventDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_event_list);
-
-        Toolbar toolbar = (Toolbar)findViewById(R.id.alToolbar);
+        setContentView(R.layout.activity_event_detail);
+        Toolbar toolbar = (Toolbar)findViewById(R.id.adToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -26,11 +23,5 @@ public class EventListActivity extends AppCompatActivity {
             finish(); // close this activity and return to preview activity (if there is any)
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void goToEventListDetail(View view) {
-        Intent intent = new Intent(this, EventDetailActivity.class);
-
-        startActivity(intent);
     }
 }

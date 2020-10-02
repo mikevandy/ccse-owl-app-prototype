@@ -14,7 +14,7 @@ public class MyEventsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_events);
     }
     public void goToEventListDetail(View view) {
-        Intent intent = new Intent(this, EventListDetailActivity.class);
+        Intent intent = new Intent(this, EventDetailActivity.class);
 
         startActivity(intent);
     }
