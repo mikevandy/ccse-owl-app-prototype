@@ -2,13 +2,23 @@ package com.ccseevents.owl;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 public class EventListActivity extends AppCompatActivity {
+//    private RecyclerView recyclerView;
+//    private RecyclerView.Adapter mAdapter;
+//    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,18 +29,27 @@ public class EventListActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        MyAdapter adapter = new MyAdapter(generateSimpleList());
+
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void goToEventListDetail(View view) {
-        Intent intent = new Intent(this, EventDetailActivity.class);
-
-        startActivity(intent);
+    private List<MyViewModel> generateSimpleList() {
+        List<MyViewModel> myViewModelList = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            myViewModelList.add(new MyViewModel(String.format(Locale.US, "This is item %d", i)));
+        }
+        return myViewModelList;
     }
 }
