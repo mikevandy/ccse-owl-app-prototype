@@ -42,5 +42,4 @@
         app:layout_constraintTop_toBottomOf="@+id/alToolbar"
         tools:layout_editor_absoluteX="1dp" />
 
-
 </androidx.constraintlayout.widget.ConstraintLayout>

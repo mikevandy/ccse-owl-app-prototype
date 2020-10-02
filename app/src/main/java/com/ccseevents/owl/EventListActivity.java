@@ -48,7 +48,10 @@ public class EventListActivity extends AppCompatActivity {
     private List<MyViewModel> generateSimpleList() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            myViewModelList.add(new MyViewModel(String.format(Locale.US, "This is item %d", i)));
+            MyViewModel myViewModel = new MyViewModel();
+            myViewModel.setDescription(String.format(Locale.US, "This is item %d", i));
+            myViewModel.setDayOfWeek("Wed");
+            myViewModelList.add(myViewModel);
         }
         return myViewModelList;
     }
