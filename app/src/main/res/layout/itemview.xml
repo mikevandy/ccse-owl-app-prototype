@@ -14,16 +14,30 @@
         android:paddingLeft="5dp"
         android:paddingTop="1dp">
 
-<!--        <TextView-->
-<!--            android:id="@+id/dateBox"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="@color/ksuYellow" />-->
-        <ImageButton
-            android:id="@+id/featuredEventBtn"
-            android:layout_width="75dp"
-            android:layout_height="75dp"
-            android:src="@drawable/ksu_yellow"/>
+            <LinearLayout
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:background="@drawable/ksu_yellow"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/eventDateView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/ksuBlack" />
+
+                <TextView
+                    android:id="@+id/eventDayMonthView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:textStyle="bold"
+                    android:textColor="@color/ksuBlack" />
+
+            </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -33,7 +47,7 @@
             android:paddingTop="15dp">
 
             <TextView
-                android:id="@+id/firstLine"
+                android:id="@+id/eventTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
@@ -45,11 +59,14 @@
                 android:background="@color/ksuYellow"/>
 
             <TextView
-                android:id="@+id/secondLine"
+                android:id="@+id/eventDateTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:textColor="@color/ksuBlack" />
+
         </LinearLayout>
+
     </LinearLayout>
+
 </androidx.appcompat.widget.LinearLayoutCompat>

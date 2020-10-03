@@ -7,20 +7,23 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder {
-//    private TextView myDateBox;
-    private TextView myFirstLine;
-    private TextView mySecondLine;
+    private TextView myDayOfTheWeek;
+    private TextView myDayMonth;
+    private TextView myTitle;
+    private TextView myDateTime;
 
     public MyViewHolder(final View itemView) {
         super(itemView);
-//        myDateBox = (TextView) itemView.findViewById(R.id.dateBox);
-        myFirstLine = (TextView) itemView.findViewById(R.id.secondLine);
-        mySecondLine = (TextView) itemView.findViewById(R.id.firstLine);
+        myDayOfTheWeek = (TextView) itemView.findViewById(R.id.eventDateView);
+        myDayMonth = (TextView) itemView.findViewById(R.id.eventDayMonthView);
+        myTitle = (TextView) itemView.findViewById(R.id.eventTitle);
+        myDateTime = (TextView) itemView.findViewById(R.id.eventDateTime);
     }
 
     public void bindData(final MyViewModel viewModel) {
-//        myDateBox.setText(viewModel.getDayOfWeek());
-        myFirstLine.setText(viewModel.getDescription());
-        mySecondLine.setText(viewModel.getDescription());
+        myDayOfTheWeek.setText(viewModel.getDayOfWeek());
+        myDayMonth.setText(viewModel.getDay() + " " + viewModel.getMonth());
+        myTitle.setText(viewModel.getTitle());
+        myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " @ " + viewModel.getFromTime());
     }
 }

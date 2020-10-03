@@ -9,10 +9,8 @@ public class MyViewModel {
     private String day;
     private String month;
     private String year;
-    private String fromHour;
-    private String fromMinute;
-    private String toHour;
-    private String toMinute;
+    private String fromTime;
+    private String toTime;
     private String title;
     private String description;
     private String host;
@@ -25,10 +23,8 @@ public class MyViewModel {
         this.day = v.day;
         this.month = v.month;
         this.year = v.year;
-        this.fromHour = v.fromHour;
-        this.fromMinute = v.fromMinute;
-        this.toHour = v.toHour;
-        this.toMinute = v.toMinute;
+        this.fromTime = v.fromTime;
+        this.toTime = v.toTime;
         this.title = v.title;
         this.description = v.description;
         this.host = v.host;
@@ -74,36 +70,20 @@ public class MyViewModel {
         this.year = year;
     }
 
-    public String getFromHour() {
-        return this.fromHour;
+    public String getFromTime() {
+        return this.fromTime;
     }
 
-    public void setFromHour(final String fromHour) {
-        this.fromHour = fromHour;
+    public void setFromTime(final String fromTime) {
+        this.fromTime = fromTime;
     }
 
-    public String getFromMinute() {
-        return this.fromMinute;
+    public String getToTime() {
+        return this.toTime;
     }
 
-    public void setFromMinute(final String fromMinute) {
-        this.fromMinute = fromMinute;
-    }
-
-    public String getToHour() {
-        return this.toHour;
-    }
-
-    public void setToHour(final String toHour) {
-        this.toHour = toHour;
-    }
-
-    public String getToMinute() {
-        return this.toMinute;
-    }
-
-    public void setToMinute(final String toMinute) {
-        this.toMinute = toMinute;
+    public void setToTime(final String toTime) {
+        this.toTime = toTime;
     }
 
     public String getTitle() {
