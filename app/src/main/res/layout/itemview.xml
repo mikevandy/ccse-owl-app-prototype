@@ -6,38 +6,38 @@
     android:layout_height="wrap_content"
     android:layout_margin="1dp">
 
-
     <LinearLayout
+        android:id="@+id/overallEventSelected"
         android:layout_width="wrap_content"
         android:layout_height="75dp"
         android:orientation="horizontal"
         android:paddingLeft="5dp"
         android:paddingTop="1dp">
 
-            <LinearLayout
-                android:layout_width="75dp"
-                android:layout_height="75dp"
-                android:background="@drawable/ksu_yellow"
-                android:gravity="center"
-                android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:gravity="center"
+            android:background="@drawable/ksu_yellow"
+            android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/eventDateView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textStyle="bold"
-                    android:textColor="@color/ksuBlack" />
+            <TextView
+                android:id="@+id/eventDateView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
-                <TextView
-                    android:id="@+id/eventDayMonthView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:textStyle="bold"
-                    android:textColor="@color/ksuBlack" />
+            <TextView
+                android:id="@+id/eventDayMonthView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
-            </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"

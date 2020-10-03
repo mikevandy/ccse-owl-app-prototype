@@ -10,15 +10,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 public class EventListActivity extends AppCompatActivity {
-//    private RecyclerView recyclerView;
-//    private RecyclerView.Adapter mAdapter;
-//    private RecyclerView.LayoutManager layoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +35,19 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    Toast.makeText(EventListActivity.this, "You clicked the Linear Layout " + position, Toast.LENGTH_SHORT).show();
+                }
+
+                @Override
+                public void onLongItemClick(View view, int position) {
+                    Toast.makeText(EventListActivity.this, "You clicked the Linear Layout LONG " + position, Toast.LENGTH_SHORT).show();
+                }
+            })
+        );
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -69,8 +81,8 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel2.setDay("10");
         myViewModel2.setMonth("Nov");
         myViewModel2.setYear("2020");
-        myViewModel2.setFromTime("6:00AM");
-        myViewModel2.setToTime("7:00AM");
+        myViewModel2.setFromTime("6:30AM");
+        myViewModel2.setToTime("7:30AM");
         myViewModel2.setTitle("BlackRock Series");
         myViewModel2.setDescription("While I nodded, nearly napping, suddenly there came a tapping As of some one gently rapping, rapping at my chamber door.");
         myViewModel2.setHost("The Raven by Edgar Allen Poe");
@@ -97,8 +109,8 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel4.setDay("26");
         myViewModel4.setMonth("Nov");
         myViewModel4.setYear("2020");
-        myViewModel4.setFromTime("6:00AM");
-        myViewModel4.setToTime("7:00AM");
+        myViewModel4.setFromTime("6:30AM");
+        myViewModel4.setToTime("7:45AM");
         myViewModel4.setTitle("CCSE Internship Networking Night");
         myViewModel4.setDescription("Ah, distinctly I remember it was in the bleak December; And each separate dying ember wrought its ghost upon the floor.");
         myViewModel4.setHost("The Raven by Edgar Allen Poe");

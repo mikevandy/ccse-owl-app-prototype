@@ -2,11 +2,12 @@ package com.ccseevents.owl;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder {
+public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     private TextView myDayOfTheWeek;
     private TextView myDayMonth;
     private TextView myTitle;
@@ -25,5 +26,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         myDayMonth.setText(viewModel.getDay() + " " + viewModel.getMonth());
         myTitle.setText(viewModel.getTitle());
         myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " @ " + viewModel.getFromTime());
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }
