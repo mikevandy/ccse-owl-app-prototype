@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 public class EventListActivity extends AppCompatActivity {
-
+    private List<MyViewModel> viewModelList = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +29,8 @@ public class EventListActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        MyAdapter adapter = new MyAdapter(generateSimpleList());
+        viewModelList.addAll(generateSimpleList());
+        MyAdapter adapter = new MyAdapter(viewModelList);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
         recyclerView.setHasFixedSize(true);
@@ -40,11 +41,25 @@ public class EventListActivity extends AppCompatActivity {
                 @Override
                 public void onItemClick(View view, int position) {
                     Toast.makeText(EventListActivity.this, "You clicked the Linear Layout " + position, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
+                    intent.putExtra("TITLE",viewModelList.get(position).getTitle());
+                    intent.putExtra("HOST",viewModelList.get(position).getHost());
+                    intent.putExtra("MONTH",viewModelList.get(position).getMonth());
+                    intent.putExtra("DAY",viewModelList.get(position).getDay());
+                    intent.putExtra("YEAR",viewModelList.get(position).getYear());
+                    intent.putExtra("TIMEFROM",viewModelList.get(position).getFromTime());
+                    intent.putExtra("TIMETO",viewModelList.get(position).getToTime());
+                    intent.putExtra("LOCATION","The Atrium Building: Room 201 (Place holder)"); // TODO: bundle.getString("LOCATION");
+                    intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
+                    startActivity(intent);
                 }
 
                 @Override
                 public void onLongItemClick(View view, int position) {
                     Toast.makeText(EventListActivity.this, "You clicked the Linear Layout LONG " + position, Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
+                    intent.putExtra("TITLE",viewModelList.get(position).getTitle());
+                    startActivity(intent);
                 }
             })
         );
@@ -70,7 +85,7 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel1.setFromTime("6:00PM");
         myViewModel1.setToTime("7:00PM");
         myViewModel1.setTitle("BlackRock Series");
-        myViewModel1.setDescription("Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore - ");
+        myViewModel1.setDescription("Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore- While I nodded, nearly napping, suddenly there came a tapping, As of some one gently rapping, rapping at my chamber door— Tis some visitor, I muttered, tapping at my chamber door— Only this and nothing more.");
         myViewModel1.setHost("The Raven by Edgar Allen Poe");
         myViewModelList.add(myViewModel1);
 
@@ -84,7 +99,7 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel2.setFromTime("6:30AM");
         myViewModel2.setToTime("7:30AM");
         myViewModel2.setTitle("BlackRock Series");
-        myViewModel2.setDescription("While I nodded, nearly napping, suddenly there came a tapping As of some one gently rapping, rapping at my chamber door.");
+        myViewModel2.setDescription("Ah, distinctly I remember it was in the bleak December; And each separate dying ember wrought its ghost upon the floor. Eagerly I wished the morrow;—vainly I had sought to borrow From my books surcease of sorrow—sorrow for the lost Lenore— For the rare and radiant maiden whom the angels name Lenore— Nameless here for evermore.");
         myViewModel2.setHost("The Raven by Edgar Allen Poe");
         myViewModelList.add(myViewModel2);
 
@@ -98,7 +113,7 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel3.setFromTime("6:00PM");
         myViewModel3.setToTime("7:00PM");
         myViewModel3.setTitle("CCSE Internship Networking Night");
-        myViewModel3.setDescription("Tis some visitor, I muttered, tapping at my chamber door Only this and nothing more.");
+        myViewModel3.setDescription("And the silken, sad, uncertain rustling of each purple curtain Thrilled me—filled me with fantastic terrors never felt before; So that now, to still the beating of my heart, I stood repeating, Tis some visitor entreating entrance at my chamber door— Some late visitor entreating entrance at my chamber door;— This it is and nothing more.");
         myViewModel3.setHost("The Raven by Edgar Allen Poe");
         myViewModelList.add(myViewModel3);
 
@@ -112,7 +127,7 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel4.setFromTime("6:30AM");
         myViewModel4.setToTime("7:45AM");
         myViewModel4.setTitle("CCSE Internship Networking Night");
-        myViewModel4.setDescription("Ah, distinctly I remember it was in the bleak December; And each separate dying ember wrought its ghost upon the floor.");
+        myViewModel4.setDescription("Presently my soul grew stronger; hesitating then no longer, Sir, said I, or Madam, truly your forgiveness I implore; But the fact is I was napping, and so gently you came rapping, And so faintly you came tapping, tapping at my chamber door, That I scarce was sure I heard you\"—here I opened wide the door;— Darkness there and nothing more.");
         myViewModel4.setHost("The Raven by Edgar Allen Poe");
         myViewModelList.add(myViewModel4);
 
@@ -126,7 +141,7 @@ public class EventListActivity extends AppCompatActivity {
         myViewModel5.setFromTime("6:00PM");
         myViewModel5.setToTime("7:00PM");
         myViewModel5.setTitle("CCSE Hackathon");
-        myViewModel5.setDescription("Eagerly I wished the morrow;—vainly I had sought to borrow From my books surcease of sorrow—sorrow for the lost Lenore— For the rare and radiant maiden whom the angels name Lenore— Nameless here for evermore.");
+        myViewModel5.setDescription("Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.");
         myViewModel5.setHost("The Raven by Edgar Allen Poe");
         myViewModelList.add(myViewModel5);
 
