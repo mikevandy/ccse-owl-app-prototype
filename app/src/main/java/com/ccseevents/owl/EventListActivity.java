@@ -40,7 +40,6 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                 @Override
                 public void onItemClick(View view, int position) {
-                    Toast.makeText(EventListActivity.this, "You clicked the Linear Layout " + position, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
                     intent.putExtra("TITLE",viewModelList.get(position).getTitle());
                     intent.putExtra("HOST",viewModelList.get(position).getHost());
@@ -51,12 +50,12 @@ public class EventListActivity extends AppCompatActivity {
                     intent.putExtra("TIMETO",viewModelList.get(position).getToTime());
                     intent.putExtra("LOCATION","The Atrium Building: Room 201 (Place holder)"); // TODO: bundle.getString("LOCATION");
                     intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
+                    intent.putExtra("EVENTID",viewModelList.get(position).getId());
                     startActivity(intent);
                 }
 
                 @Override
                 public void onLongItemClick(View view, int position) {
-                    Toast.makeText(EventListActivity.this, "You clicked the Linear Layout LONG " + position, Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
                     intent.putExtra("TITLE",viewModelList.get(position).getTitle());
                     startActivity(intent);
