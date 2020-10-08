@@ -104,11 +104,10 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
         Cursor res = db.rawQuery("select * from "+ TABLE_NAME,null);
         StringBuffer buffer = new StringBuffer();
         while (res.moveToNext()){
-            Integer val = Integer.parseInt(res.getString(0));
-            if (eventID == val)
+            int val = res.getInt(0);
+            if (eventID == val) {
                 return true;
-            else
-                return false;
+            }
         }
         return false;
     }

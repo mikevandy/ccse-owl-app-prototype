@@ -76,20 +76,23 @@ public class MyEventsActivity extends AppCompatActivity {
     private List<MyViewModel> generateSimpleList() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
         Cursor res = myeventDB.getMyEvents();
+        int i = 0;
         if (res.getCount() != 0) {
-            MyViewModel myViewModel = new MyViewModel();
+            MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
             while (res.moveToNext()){
-                myViewModel.setId(res.getInt(0));
-                myViewModel.setDayOfWeek(res.getString(1));
-                myViewModel.setDay(res.getString(2));
-                myViewModel.setMonth(res.getString(3));
-                myViewModel.setYear(res.getString(4));
-                myViewModel.setFromTime(res.getString(5));
-                myViewModel.setToTime(res.getString(6));
-                myViewModel.setTitle(res.getString(7));
-                myViewModel.setDescription(res.getString(8));
-                myViewModel.setHost(res.getString(9));
-                myViewModelList.add(myViewModel);
+                myViewModel[i] = new MyViewModel();
+                myViewModel[i].setId(res.getInt(0));
+                myViewModel[i].setDayOfWeek(res.getString(1));
+                myViewModel[i].setDay(res.getString(2));
+                myViewModel[i].setMonth(res.getString(3));
+                myViewModel[i].setYear(res.getString(4));
+                myViewModel[i].setFromTime(res.getString(5));
+                myViewModel[i].setToTime(res.getString(6));
+                myViewModel[i].setTitle(res.getString(7));
+                myViewModel[i].setDescription(res.getString(8));
+                myViewModel[i].setHost(res.getString(9));
+                myViewModelList.add(myViewModel[i]);
+                i++;
             }
         }
         return myViewModelList;
