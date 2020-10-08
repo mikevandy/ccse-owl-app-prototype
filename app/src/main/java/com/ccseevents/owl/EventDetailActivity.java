@@ -27,7 +27,7 @@ public class EventDetailActivity extends AppCompatActivity {
         final Bundle bundle = getIntent().getExtras();
         //Check whether event has already been added to My Events and adjust button text
         int eID = bundle.getInt("EVENTID");
-        boolean btnfavorited = myeventDB.existsData(eID);
+        boolean btnfavorited = myeventDB.existsMyEvents(eID);
         if (btnfavorited) {
             FavoriteButton.setText("Remove from My Events");
         }
@@ -68,9 +68,9 @@ public class EventDetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 int eventID = bundle.getInt("EVENTID");
-                boolean favorited = myeventDB.existsData(eventID);
+                boolean favorited = myeventDB.existsMyEvents(eventID);
                 if (favorited) {
-                    boolean isDeleted = myeventDB.deleteData(eventID);
+                    boolean isDeleted = myeventDB.deleteMyEvents(eventID);
                     if (isDeleted) {
                         FavoriteButton.setText("Add to My Events");
                     }
@@ -79,7 +79,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    boolean isInserted = myeventDB.insertData(eventID);
+                    boolean isInserted = myeventDB.insertMyEvents(eventID);
                     if (isInserted) {
                         FavoriteButton.setText("Remove from My Events");
                     }

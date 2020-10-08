@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,16 +20,18 @@ import java.util.Locale;
 
 public class MyEventsActivity extends AppCompatActivity {
     private List<MyViewModel> viewModelList = new ArrayList<>();
+    public MyEventsDatabaseHelper myeventDB = new MyEventsDatabaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_events);
+        setContentView(R.layout.activity_event_list);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.alToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
+        viewModelList.addAll(generateSimpleList());
         MyAdapter adapter = new MyAdapter(viewModelList);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
@@ -49,6 +52,7 @@ public class MyEventsActivity extends AppCompatActivity {
                         intent.putExtra("TIMETO",viewModelList.get(position).getToTime());
                         intent.putExtra("LOCATION","The Atrium Building: Room 201 (Place holder)"); // TODO: bundle.getString("LOCATION");
                         intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
+                        intent.putExtra("EVENTID",viewModelList.get(position).getId());
                         startActivity(intent);
                     }
 
@@ -69,4 +73,25 @@ public class MyEventsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private List<MyViewModel> generateSimpleList() {
+        List<MyViewModel> myViewModelList = new ArrayList<>();
+        Cursor res = myeventDB.getMyEvents();
+        if (res.getCount() != 0) {
+            MyViewModel myViewModel = new MyViewModel();
+            while (res.moveToNext()){
+                myViewModel.setId(res.getInt(0));
+                myViewModel.setDayOfWeek(res.getString(1));
+                myViewModel.setDay(res.getString(2));
+                myViewModel.setMonth(res.getString(3));
+                myViewModel.setYear(res.getString(4));
+                myViewModel.setFromTime(res.getString(5));
+                myViewModel.setToTime(res.getString(6));
+                myViewModel.setTitle(res.getString(7));
+                myViewModel.setDescription(res.getString(8));
+                myViewModel.setHost(res.getString(9));
+                myViewModelList.add(myViewModel);
+            }
+        }
+        return myViewModelList;
+    }
 }
