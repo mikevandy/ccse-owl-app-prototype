@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 public class MyViewModel {
 
     private Integer id;
-    private String dayOfWeek;
+    private int dayOfWeek;
     private String day;
-    private String month;
+    private int month;
     private String year;
     private String fromTime;
     private String toTime;
@@ -31,10 +31,32 @@ public class MyViewModel {
     }
 
     public String getDayOfWeek() {
-        return this.dayOfWeek;
+        String textDayofWeek = "Unk";
+        if (this.dayOfWeek == 0) {
+            textDayofWeek = "Sun";
+        }
+        if (this.dayOfWeek == 1) {
+            textDayofWeek = "Mon";
+        }
+        if (this.dayOfWeek == 2) {
+            textDayofWeek = "Tue";
+        }
+        if (this.dayOfWeek == 3) {
+            textDayofWeek = "Wed";
+        }
+        if (this.dayOfWeek == 4) {
+            textDayofWeek = "Thu";
+        }
+        if (this.dayOfWeek == 5) {
+            textDayofWeek = "Fri";
+        }
+        if (this.dayOfWeek == 6) {
+            textDayofWeek = "Sat";
+        }
+        return textDayofWeek;
     }
 
-    public void setDayOfWeek(final String dayOfWeek) {
+    public void setDayOfWeek(final int dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
     }
 
@@ -55,10 +77,47 @@ public class MyViewModel {
     }
 
     public String getMonth() {
-        return this.month;
+        String textMonth = "Unk";
+        if (this.month == 1){
+            textMonth = "Jan";
+        }
+        if (this.month == 2){
+            textMonth = "Feb";
+        }
+        if (this.month == 3){
+            textMonth = "Mar";
+        }
+        if (this.month == 4){
+            textMonth = "Apr";
+        }
+        if (this.month == 5){
+            textMonth = "May";
+        }
+        if (this.month == 6){
+            textMonth = "Jun";
+        }
+        if (this.month == 7){
+            textMonth = "Jul";
+        }
+        if (this.month == 8){
+            textMonth = "Aug";
+        }
+        if (this.month == 9){
+            textMonth = "Sep";
+        }
+        if (this.month == 10){
+            textMonth = "Oct";
+        }
+        if (this.month == 11){
+            textMonth = "Nov";
+        }
+        if (this.month == 12) {
+            textMonth = "Dec";
+        }
+        return textMonth;
     }
 
-    public void setMonth(final String month) {
+    public void setMonth(final int month) {
         this.month = month;
     }
 

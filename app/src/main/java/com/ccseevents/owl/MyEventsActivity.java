@@ -1,5 +1,6 @@
 package com.ccseevents.owl;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import java.util.Locale;
 public class MyEventsActivity extends AppCompatActivity {
     private List<MyViewModel> viewModelList = new ArrayList<>();
     public MyEventsDatabaseHelper myeventDB = new MyEventsDatabaseHelper(this);
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +77,7 @@ public class MyEventsActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private List<MyViewModel> generateSimpleList() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
         Cursor res = myeventDB.getMyEvents();
@@ -83,9 +87,9 @@ public class MyEventsActivity extends AppCompatActivity {
             while (res.moveToNext()){
                 myViewModel[i] = new MyViewModel();
                 myViewModel[i].setId(res.getInt(0));
-                myViewModel[i].setDayOfWeek(res.getString(1));
+                myViewModel[i].setDayOfWeek(res.getInt(1));
                 myViewModel[i].setDay(res.getString(2));
-                myViewModel[i].setMonth(res.getString(3));
+                myViewModel[i].setMonth(res.getInt(3));
                 myViewModel[i].setYear(res.getString(4));
                 myViewModel[i].setFromTime(res.getString(5));
                 myViewModel[i].setToTime(res.getString(6));

@@ -5,8 +5,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Build;
+
+import java.util.Date;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 
 public class MyEventsDatabaseHelper extends SQLiteOpenHelper
 {
@@ -14,17 +18,12 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
     public static final String TABLE_NAME = "my_events";
     public static final String TABLE_NAME1 = "all_events";
     public static final String COL_1 = "ID";
-    public static final String COL_2 = "DAYOFWEEK";
-    public static final String COL_3 = "DAY";
-    public static final String COL_4 = "MONTH";
-    public static final String COL_5 = "YEAR";
-    public static final String COL_6 = "FROMTIME";
-    public static final String COL_7 = "TOTIME";
-    public static final String COL_8 = "TITLE";
-    public static final String COL_9 = "DESCRIPTION";
-    public static final String COL_10 = "HOST";
-    public static final String COL_11 = "LOCATION";
-    public static final String COL_12 = "RSVPLINK";
+    public static final String COL_2 = "EVENTDATE";
+    public static final String COL_3 = "TITLE";
+    public static final String COL_4 = "DESCRIPTION";
+    public static final String COL_5 = "HOST";
+    public static final String COL_6 = "LOCATION";
+    public static final String COL_7 = "RSVPLINK";
 
     public MyEventsDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
@@ -33,7 +32,7 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
     @Override
     public void onCreate(SQLiteDatabase db) {
        db.execSQL("create table "+TABLE_NAME+" ("+COL_1+" INTEGER PRIMARY KEY)");
-       db.execSQL("create table "+TABLE_NAME1+" (ID INTEGER PRIMARY KEY, DAYOFWEEK TEXT, DAY TEXT, MONTH TEXT, YEAR TEXT, FROMTIME TEXT, TOTIME TEXT, TITLE TEXT, DESCRIPTION TEXT, HOST TEXT, LOCATION TEXT, RSVPLINK TEXT)");
+       db.execSQL("create table "+TABLE_NAME1+" (ID INTEGER PRIMARY KEY, EVENTDATE TEXT, TITLE TEXT, DESCRIPTION TEXT, HOST TEXT, LOCATION TEXT, RSVPLINK TEXT)");
     }
 
     @Override
@@ -45,21 +44,16 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
         onCreate(sqLiteDatabase);
     }
 
-    public boolean insertEvents(Integer Id, String dayOfWeek,String day,String month,String year,String fromTime,String toTime,String title,String description,String host,String location,String rsvplink) {
+    public boolean insertEvents(Integer Id, String eventdate, String title, String description, String host, String location, String rsvplink) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,Id);
-        contentValues.put(COL_2,dayOfWeek);
-        contentValues.put(COL_3,day);
-        contentValues.put(COL_4,month);
-        contentValues.put(COL_5,year);
-        contentValues.put(COL_6,fromTime);
-        contentValues.put(COL_7,toTime);
-        contentValues.put(COL_8,title);
-        contentValues.put(COL_9,description);
-        contentValues.put(COL_10,host);
-        contentValues.put(COL_11,location);
-        contentValues.put(COL_12,rsvplink);
+        contentValues.put(COL_2, eventdate);
+        contentValues.put(COL_3,title);
+        contentValues.put(COL_4,description);
+        contentValues.put(COL_5,host);
+        contentValues.put(COL_6,location);
+        contentValues.put(COL_7,rsvplink);
         long result = db.insert(TABLE_NAME1,null,contentValues);
         if (result == -1)
             return false;
@@ -67,16 +61,17 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
             return true;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+ TABLE_NAME1,null);
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate),strftime('%d',eventDate),strftime('%m',eventDate),strftime('%Y',eventDate),strftime('%H:%M',eventDate),'7:00',title,description,host from "+ TABLE_NAME1 +" where eventdate>date('now') order by eventdate",null);
         return res;
     }
 
     //My Events Table Functions
     public Cursor getMyEvents(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from " + TABLE_NAME1 +" a INNER JOIN "+TABLE_NAME+" b on a.ID=b.ID",null);
+        Cursor res = db.rawQuery("select a.ID,strftime('%w',eventDate),strftime('%d',eventDate),strftime('%m',eventDate),strftime('%Y',eventDate),strftime('%H:%M',eventDate),'7:00',title,description,host from "+ TABLE_NAME1 +" a INNER JOIN "+TABLE_NAME+" b on a.ID=b.ID where eventdate>date('now') order by eventdate",null);
         return res;
     }
     public boolean insertMyEvents(Integer Id) {
@@ -111,4 +106,11 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
         }
         return false;
     }
+
+    public Cursor featuredEvent(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from  "+ TABLE_NAME1 + " where eventdate>date('now') order by eventdate LIMIT 1",null);
+        return res;
+    }
 }
+

@@ -1,10 +1,12 @@
 package com.ccseevents.owl;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -20,11 +22,16 @@ public class MainMenuActivity extends AppCompatActivity {
         ImageButton FeaturedEvent = (ImageButton)findViewById(R.id.featuredEventBtn);
         ImageButton EventList = (ImageButton)findViewById(R.id.eventListBtn);
         ImageButton MyEvents = (ImageButton)findViewById(R.id.myEventBtn);
-        final boolean insert = myeventDB.insertEvents(1,"Mon","02","Nov","2020","6:00PM","7:00PM","BlackRock Series","Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore- While I nodded, nearly napping, suddenly there came a tapping, As of some one gently rapping, rapping at my chamber door— Tis some visitor, I muttered, tapping at my chamber door— Only this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(2,"Tue","10","Nov","2020","6:30PM","7:45PM","BlackRock Series","Ah, distinctly I remember it was in the bleak December; And each separate dying ember wrought its ghost upon the floor. Eagerly I wished the morrow;—vainly I had sought to borrow From my books surcease of sorrow—sorrow for the lost Lenore— For the rare and radiant maiden whom the angels name Lenore— Nameless here for evermore.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(3,"Wed","18","Nov","2020","6:00PM","7:00PM","CCSE Internship Networking Night","And the silken, sad, uncertain rustling of each purple curtain Thrilled me—filled me with fantastic terrors never felt before; So that now, to still the beating of my heart, I stood repeating, Tis some visitor entreating entrance at my chamber door— Some late visitor entreating entrance at my chamber door;— This it is and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(4,"Thu","26","Nov","2020","6:30PM","7:45PM","CCSE Internship Networking Night","Presently my soul grew stronger; hesitating then no longer, Sir, said I, or Madam, truly your forgiveness I implore; But the fact is I was napping, and so gently you came rapping, And so faintly you came tapping, tapping at my chamber door, That I scarce was sure I heard you\"—here I opened wide the door;— Darkness there and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(5,"Fri","04","Dec","2020","6:00PM","7:00PM","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(1,"2020-11-02 06:00" ,"BlackRock Series","Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore- While I nodded, nearly napping, suddenly there came a tapping, As of some one gently rapping, rapping at my chamber door— Tis some visitor, I muttered, tapping at my chamber door— Only this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(2,"2020-11-10 06:30","BlackRock Series","Ah, distinctly I remember it was in the bleak December; And each separate dying ember wrought its ghost upon the floor. Eagerly I wished the morrow;—vainly I had sought to borrow From my books surcease of sorrow—sorrow for the lost Lenore— For the rare and radiant maiden whom the angels name Lenore— Nameless here for evermore.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(3,"2020-11-18 06:00","CCSE Internship Networking Night","And the silken, sad, uncertain rustling of each purple curtain Thrilled me—filled me with fantastic terrors never felt before; So that now, to still the beating of my heart, I stood repeating, Tis some visitor entreating entrance at my chamber door— Some late visitor entreating entrance at my chamber door;— This it is and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(4,"2020-11-26 06:30","CCSE Internship Networking Night","Presently my soul grew stronger; hesitating then no longer, Sir, said I, or Madam, truly your forgiveness I implore; But the fact is I was napping, and so gently you came rapping, And so faintly you came tapping, tapping at my chamber door, That I scarce was sure I heard you\"—here I opened wide the door;— Darkness there and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(5,"2020-12-04 06:00","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(6,"2021-01-04 06:00","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(7,"2020-12-04 05:00","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(8,"2020-01-04 05:00","Old Event","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(9,"2020-09-04 05:00","First Event","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
+        myeventDB.insertEvents(10,"2020-10-10 05:00","First Event","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
 
         EventList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,18 +48,19 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
         FeaturedEvent.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
             @Override
             public void onClick(View v) {
-                Cursor res = myeventDB.getAllData();
+                Cursor res = myeventDB.featuredEvent();
                 if (res.getCount() == 0) {
-                    showMessage("Error","No Data: "+ insert);
+                    showMessage("Error","No Data: ");
                     return;
                 }
 
                 StringBuffer buffer = new StringBuffer();
-                buffer.append(insert+"\n");
                 while (res.moveToNext()){
                     buffer.append("ID :"+res.getString(0)+"\n");
+                    buffer.append("date :"+res.getString(1)+"\n");
                 }
                 //Show all Data
                 showMessage("Data",buffer.toString());

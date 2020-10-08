@@ -1,5 +1,6 @@
 package com.ccseevents.owl;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +23,7 @@ import java.util.Locale;
 public class EventListActivity extends AppCompatActivity {
     private List<MyViewModel> viewModelList = new ArrayList<>();
     public MyEventsDatabaseHelper myeventDB = new MyEventsDatabaseHelper(this);
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,18 +76,19 @@ public class EventListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private List<MyViewModel> generateSimpleList() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
         Cursor res = myeventDB.getAllData();
         if (res.getCount() != 0) {
             MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
+            int i = 0;
             while (res.moveToNext()){
-                int i = res.getInt(0)-1;
                 myViewModel[i] = new MyViewModel();
                 myViewModel[i].setId(res.getInt(0));
-                myViewModel[i].setDayOfWeek(res.getString(1));
+                myViewModel[i].setDayOfWeek(res.getInt(1));
                 myViewModel[i].setDay(res.getString(2));
-                myViewModel[i].setMonth(res.getString(3));
+                myViewModel[i].setMonth(res.getInt(3));
                 myViewModel[i].setYear(res.getString(4));
                 myViewModel[i].setFromTime(res.getString(5));
                 myViewModel[i].setToTime(res.getString(6));
@@ -92,6 +96,7 @@ public class EventListActivity extends AppCompatActivity {
                 myViewModel[i].setDescription(res.getString(8));
                 myViewModel[i].setHost(res.getString(9));
                 myViewModelList.add(myViewModel[i]);
+                i++;
             }
         }
         return myViewModelList;
