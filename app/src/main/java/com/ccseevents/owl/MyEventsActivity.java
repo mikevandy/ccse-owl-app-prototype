@@ -30,6 +30,7 @@ public class MyEventsActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setTitle("My Events");
 
         viewModelList.addAll(generateSimpleList());
         MyAdapter adapter = new MyAdapter(viewModelList);
