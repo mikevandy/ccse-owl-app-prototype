@@ -101,7 +101,7 @@ public class EventDetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Cursor res = myeventDB.getEventDate(eventID);
                 int calday = 1;
-                int calmonth = 1;
+                int calmonth = 0;
                 int calyear = 2020;
                 int starthour = 12;
                 int startmin = 0;
@@ -112,8 +112,8 @@ public class EventDetailActivity extends AppCompatActivity {
                 }
                 while (res.moveToNext()){
                     calday = res.getInt(0);
-                    calmonth = res.getInt(1);
-                    calyear = res.getInt(2);
+                    calmonth = res.getInt(1)-1; //0 is Jan for Calendar, 1 is for Jan in DB so make adjustment here
+                    calyear = res.getInt(2)-1;
                     starthour = res.getInt(3);
                     startmin = res.getInt(4);
                     endhour = res.getInt(5);
