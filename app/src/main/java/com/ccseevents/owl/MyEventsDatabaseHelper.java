@@ -115,7 +115,7 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
     }
     public Cursor featuredEvent(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from  "+ TABLE_NAME1 + " where eventDate_start>date('now') order by eventDate_start LIMIT 1",null);
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host from  "+ TABLE_NAME1 + " where eventDate_start>date('now') order by eventDate_start LIMIT 1",null);
         return res;
     }
 }
