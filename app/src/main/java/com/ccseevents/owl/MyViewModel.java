@@ -1,6 +1,11 @@
 package com.ccseevents.owl;
 
-import androidx.annotation.NonNull;
+import android.os.Build;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import androidx.annotation.RequiresApi;
 
 public class MyViewModel {
 
@@ -129,16 +134,20 @@ public class MyViewModel {
         this.year = year;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getFromTime() {
-        return this.fromTime;
+        String result = LocalTime.parse(this.fromTime).format(DateTimeFormatter.ofPattern("h:mma"));
+        return result;
     }
 
     public void setFromTime(final String fromTime) {
         this.fromTime = fromTime;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public String getToTime() {
-        return this.toTime;
+        String result = LocalTime.parse(this.toTime).format(DateTimeFormatter.ofPattern("h:mma"));
+        return result;
     }
 
     public void setToTime(final String toTime) {
