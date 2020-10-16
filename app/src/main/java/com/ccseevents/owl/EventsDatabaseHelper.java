@@ -7,12 +7,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Build;
 
-import java.util.Date;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
-public class MyEventsDatabaseHelper extends SQLiteOpenHelper
+public class EventsDatabaseHelper extends SQLiteOpenHelper
 {
     public static final String DATABASE_NAME = "myevents.db";
     public static final String TABLE_NAME = "my_events";
@@ -26,7 +24,7 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
     public static final String COL_7 = "LOCATION";
     public static final String COL_8 = "RSVPLINK";
 
-    public MyEventsDatabaseHelper(@Nullable Context context) {
+    public EventsDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
@@ -69,7 +67,15 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
         Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host from "+ TABLE_NAME1 +" where eventDate_start>date('now') order by eventDate_start",null);
         return res;
     }
-
+    public boolean deleteAllData() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        long result = db.delete(TABLE_NAME1,null,null);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
     //My Events Table Functions
     public Cursor getMyEvents(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -110,7 +116,7 @@ public class MyEventsDatabaseHelper extends SQLiteOpenHelper
 
     public Cursor getEventDate(Integer eventID){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H',eventDate_start),strftime('%M',eventDate_start),strftime('%H',eventDate_end),strftime('%M',eventDate_end)   from "+ TABLE_NAME1+" where ID = "+eventID,null);
+        Cursor res = db.rawQuery("select strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H',eventDate_start),strftime('%M',eventDate_start),strftime('%H',eventDate_end),strftime('%M',eventDate_end),location  from "+ TABLE_NAME1+" where ID = "+eventID,null);
         return res;
     }
     public Cursor featuredEvent(){

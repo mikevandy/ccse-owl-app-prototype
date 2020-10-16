@@ -1,39 +1,55 @@
 package com.ccseevents.owl;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
-    public MyEventsDatabaseHelper myeventDB = new MyEventsDatabaseHelper(this);
+    public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    String url = "https://calendar.kennesaw.edu/api/2/events";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
+        StringRequest request = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String string) {
+                parseJsonData(string);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Toast.makeText(getApplicationContext(), "Some error occurred.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        RequestQueue rQueue = Volley.newRequestQueue(MainMenuActivity.this);
+        rQueue.add(request);
+
         ImageButton FeaturedEvent = (ImageButton)findViewById(R.id.featuredEventBtn);
         ImageButton EventList = (ImageButton)findViewById(R.id.eventListBtn);
         ImageButton MyEvents = (ImageButton)findViewById(R.id.myEventBtn);
         TextView FeaturedEventTitle = (TextView)findViewById(R.id.FeaturedEventTitle);
-        myeventDB.insertEvents(1,"2020-11-02 18:00" ,"2020-11-02 19:00" ,"BlackRock Series","Once upon a midnight dreary, while I pondered, weak and weary, Over many a quaint and curious volume of forgotten lore- While I nodded, nearly napping, suddenly there came a tapping, As of some one gently rapping, rapping at my chamber door— Tis some visitor, I muttered, tapping at my chamber door— Only this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(2,"2020-11-10 18:30","2020-11-10 19:45","BlackRock Series","Ah, distinctly I remember it was in the bleak December; And each separate dying ember wrought its ghost upon the floor. Eagerly I wished the morrow;—vainly I had sought to borrow From my books surcease of sorrow—sorrow for the lost Lenore— For the rare and radiant maiden whom the angels name Lenore— Nameless here for evermore.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(3,"2020-11-18 18:00","2020-11-18 19:00","CCSE Internship Networking Night","And the silken, sad, uncertain rustling of each purple curtain Thrilled me—filled me with fantastic terrors never felt before; So that now, to still the beating of my heart, I stood repeating, Tis some visitor entreating entrance at my chamber door— Some late visitor entreating entrance at my chamber door;— This it is and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(4,"2020-11-26 18:30","2020-11-26 20:00","CCSE Internship Networking Night","Presently my soul grew stronger; hesitating then no longer, Sir, said I, or Madam, truly your forgiveness I implore; But the fact is I was napping, and so gently you came rapping, And so faintly you came tapping, tapping at my chamber door, That I scarce was sure I heard you\"—here I opened wide the door;— Darkness there and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(5,"2020-12-04 18:00","2020-12-04 19:00","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(6,"2021-01-04 18:00","2021-01-04 19:00","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(7,"2020-12-04 17:00","2020-12-04 18:00","CCSE Hackathon","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(8,"2020-01-04 17:00","2020-01-04 18:00","Old Event","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(9,"2020-09-04 17:00","2020-09-04 18:00","First Event","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
-        myeventDB.insertEvents(10,"2020-10-10 17:00","2020-10-10 18:15","First Event","Deep into that darkness peering, long I stood there wondering, fearing, Doubting, dreaming dreams no mortal ever dared to dream before; But the silence was unbroken, and the stillness gave no token, And the only word there spoken was the whispered word, Lenore? This I whispered, and an echo murmured back the word, Lenore!— Merely this and nothing more.","The Raven by Edgar Allen Poe","","");
 
         final Cursor res = myeventDB.featuredEvent();
         final MyViewModel myViewModel = new MyViewModel();
@@ -89,5 +105,32 @@ public class MainMenuActivity extends AppCompatActivity {
         });
 
     }
+    void parseJsonData(String jsonString) {
+        try {
+            myeventDB.deleteAllData();
+            JSONObject object = new JSONObject(jsonString);
+            JSONArray eventsArray = object.getJSONArray("events");
+            String start ="";
+            String end ="";
+            for(int i = 0; i < eventsArray.length(); ++i) {
+                JSONObject e = eventsArray.getJSONObject(i);
+                JSONObject event = e.getJSONObject("event");
+                Integer id = event.getInt("id");
+                String title = event.getString("title");
+                String descr = event.getString("description_text");
+                JSONArray instanceArray = event.getJSONArray("event_instances");
+                for(int z = 0; z < instanceArray.length(); ++z) {
+                    JSONObject inst = instanceArray.getJSONObject(z);
+                    JSONObject eventinst = inst.getJSONObject("event_instance");
+                    start = "2020-10-20 11:00";//eventinst.getString("start");
+                    end = "2020-10-20 12:00";//eventinst.getString("end");
+                }
+                myeventDB.insertEvents(id,start,end,title,descr,"","","");
+            }
 
+            Toast.makeText(getApplicationContext(), "Inside the Thing", Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }

@@ -1,8 +1,5 @@
 package com.ccseevents.owl;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -10,15 +7,17 @@ import android.provider.CalendarContract;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 public class EventDetailActivity extends AppCompatActivity {
-    public MyEventsDatabaseHelper myeventDB = new MyEventsDatabaseHelper(this);
+    public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +106,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 int startmin = 0;
                 int endhour = 1;
                 int endmin = 0;
+                String location = "";
                 if (res.getCount() == 0) {
                     return;
                 }
@@ -118,6 +118,7 @@ public class EventDetailActivity extends AppCompatActivity {
                     startmin = res.getInt(4);
                     endhour = res.getInt(5);
                     endmin = res.getInt(6);
+                    location = res.getString(7);
                 }
 
                 Calendar start = Calendar.getInstance();
@@ -131,7 +132,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 intent.putExtra(CalendarContract.Events.DESCRIPTION, descriptionValue);
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, start.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end.getTimeInMillis());
-                //intent.putExtra(CalendarContract.Events.EVENT_LOCATION, loc.getText().toString());
+                intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
                 //intent.putExtra(CalendarContract.Events.ALL_DAY, true);
 
                 if(intent.resolveActivity(getPackageManager())!=null){
