@@ -60,6 +60,7 @@ public class EventDetailActivity extends AppCompatActivity {
         TextView timeTextView = (TextView)findViewById(R.id.timeText);
         timeTextView.setText(fromValue + " to " + toValue);
 
+        // LOCATION
         String locationValue = bundle.getString("LOCATION");
         TextView locationTextView = (TextView)findViewById(R.id.locationText);
         locationTextView.setText(locationValue);

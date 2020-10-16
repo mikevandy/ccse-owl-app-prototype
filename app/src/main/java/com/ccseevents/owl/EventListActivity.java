@@ -50,7 +50,7 @@ public class EventListActivity extends AppCompatActivity {
                     intent.putExtra("YEAR",viewModelList.get(position).getYear());
                     intent.putExtra("TIMEFROM",viewModelList.get(position).getFromTime());
                     intent.putExtra("TIMETO",viewModelList.get(position).getToTime());
-                    intent.putExtra("LOCATION","The Atrium Building: Room 201 (Place holder)"); // TODO: bundle.getString("LOCATION");
+                    intent.putExtra("LOCATION",viewModelList.get(position).getLocation());
                     intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
                     intent.putExtra("EVENTID",viewModelList.get(position).getId());
                     startActivity(intent);
@@ -82,7 +82,8 @@ public class EventListActivity extends AppCompatActivity {
             int i = 0;
             while (res.moveToNext()){
                 myViewModel[i] = new MyViewModel();
-                myViewModel[i].setId(res.getInt(0));
+                int eID = res.getInt(0);
+                myViewModel[i].setId(eID);
                 myViewModel[i].setDayOfWeek(res.getInt(1));
                 myViewModel[i].setDay(res.getString(2));
                 myViewModel[i].setMonth(res.getInt(3));
@@ -92,6 +93,8 @@ public class EventListActivity extends AppCompatActivity {
                 myViewModel[i].setTitle(res.getString(7));
                 myViewModel[i].setDescription(res.getString(8));
                 myViewModel[i].setHost(res.getString(9));
+                myViewModel[i].setLocation(res.getString(10));
+                myViewModel[i].setFavorite(myeventDB.existsMyEvents(eID));
                 myViewModelList.add(myViewModel[i]);
                 i++;
             }

@@ -1,10 +1,11 @@
 package com.ccseevents.owl;
 
+import android.os.Build;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -12,6 +13,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     private TextView myDayMonth;
     private TextView myTitle;
     private TextView myDateTime;
+    private ToggleButton myFavorite;
 
     public MyViewHolder(final View itemView) {
         super(itemView);
@@ -19,13 +21,17 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         myDayMonth = (TextView) itemView.findViewById(R.id.eventDayMonthView);
         myTitle = (TextView) itemView.findViewById(R.id.eventTitle);
         myDateTime = (TextView) itemView.findViewById(R.id.eventDateTime);
+        myFavorite = (ToggleButton) itemView.findViewById(R.id.toggleFavorite);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void bindData(final MyViewModel viewModel) {
         myDayOfTheWeek.setText(viewModel.getDayOfWeek());
         myDayMonth.setText(viewModel.getDay() + " " + viewModel.getMonth());
         myTitle.setText(viewModel.getTitle());
         myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " @ " + viewModel.getFromTime());
+        myFavorite.setChecked(viewModel.getFavorite());
+
     }
 
     @Override

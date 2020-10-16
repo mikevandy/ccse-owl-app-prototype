@@ -83,7 +83,8 @@ public class MyEventsActivity extends AppCompatActivity {
             MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
             while (res.moveToNext()){
                 myViewModel[i] = new MyViewModel();
-                myViewModel[i].setId(res.getInt(0));
+                int eID = res.getInt(0);
+                myViewModel[i].setId(eID);
                 myViewModel[i].setDayOfWeek(res.getInt(1));
                 myViewModel[i].setDay(res.getString(2));
                 myViewModel[i].setMonth(res.getInt(3));
@@ -93,6 +94,8 @@ public class MyEventsActivity extends AppCompatActivity {
                 myViewModel[i].setTitle(res.getString(7));
                 myViewModel[i].setDescription(res.getString(8));
                 myViewModel[i].setHost(res.getString(9));
+                myViewModel[i].setLocation(res.getString(10));
+                myViewModel[i].setFavorite(myeventDB.existsMyEvents(eID));
                 myViewModelList.add(myViewModel[i]);
                 i++;
             }

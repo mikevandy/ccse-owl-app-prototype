@@ -64,7 +64,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host from "+ TABLE_NAME1 +" where eventDate_start>date('now') order by eventDate_start",null);
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from "+ TABLE_NAME1 +" where eventDate_start>date('now') order by eventDate_start",null);
         return res;
     }
     public boolean deleteAllData() {
@@ -79,7 +79,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     //My Events Table Functions
     public Cursor getMyEvents(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select a.ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host from "+ TABLE_NAME1 +" a INNER JOIN "+TABLE_NAME+" b on a.ID=b.ID where eventDate_start>date('now') order by eventDate_start",null);
+        Cursor res = db.rawQuery("select a.ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from "+ TABLE_NAME1 +" a INNER JOIN "+TABLE_NAME+" b on a.ID=b.ID where eventDate_start>date('now') order by eventDate_start",null);
         return res;
     }
     public boolean insertMyEvents(Integer Id) {
