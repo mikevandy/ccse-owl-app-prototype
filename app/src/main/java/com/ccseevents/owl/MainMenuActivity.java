@@ -25,6 +25,8 @@ import java.util.Calendar;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import static android.text.TextUtils.substring;
+
 public class MainMenuActivity extends AppCompatActivity {
     public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
 
@@ -119,12 +121,9 @@ public class MainMenuActivity extends AppCompatActivity {
             myeventDB.deleteAllData();
             JSONObject object = new JSONObject(jsonString);
             JSONArray eventsArray = object.getJSONArray("events");
-            String start ="";
-            String end ="";
             for(int i = 0; i < eventsArray.length(); ++i) {
                 JSONObject e = eventsArray.getJSONObject(i);
                 JSONObject event = e.getJSONObject("event");
-                Integer id = event.getInt("id");
                 String title = event.getString("title");
                 String descr = event.getString("description_text");
                 String location = event.getString("location_name");
@@ -132,10 +131,12 @@ public class MainMenuActivity extends AppCompatActivity {
                 for(int z = 0; z < instanceArray.length(); ++z) {
                     JSONObject inst = instanceArray.getJSONObject(z);
                     JSONObject eventinst = inst.getJSONObject("event_instance");
-                    start = "2020-10-20 11:00";//eventinst.getString("start");
-                    end = "2020-10-20 12:00";//eventinst.getString("end");
+                    Integer id = eventinst.getInt("id");
+                    String start = substring(eventinst.getString("start"),0,19);
+                    String end = substring(eventinst.getString("end"),0,19);
+                    myeventDB.insertEvents(id,start,end,title,descr,"",location,"");
                 }
-                myeventDB.insertEvents(id,start,end,title,descr,"",location,"");
+
             }
         } catch (JSONException e) {
             e.printStackTrace();
