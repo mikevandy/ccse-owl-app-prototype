@@ -19,17 +19,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
     public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
-    String url = "https://calendar.kennesaw.edu/api/2/events";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+        //Pull Events from API - CCSE events only for the next year
+        //Instructions for pulling events - https://developer.localist.com/doc/api#filter-json
+        //   in case in future more departments are to get pulled (changing url)
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.YEAR, 1);
+        String enddt = new SimpleDateFormat( "yyyy-MM-dd" ).format(c.getTime() );
+        String url = "https://calendar.kennesaw.edu/api/2/events?group_id=31678879585047&end="+enddt;
 
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override
@@ -97,7 +106,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 intent.putExtra("YEAR",myViewModel.getYear());
                 intent.putExtra("TIMEFROM",myViewModel.getFromTime());
                 intent.putExtra("TIMETO",myViewModel.getToTime());
-                intent.putExtra("LOCATION","The Atrium Building: Room 201 (Place holder)"); // TODO: bundle.getString("LOCATION");
+                intent.putExtra("LOCATION",myViewModel.getLocation());
                 intent.putExtra("DESCRIPTION",myViewModel.getDescription());
                 intent.putExtra("EVENTID",myViewModel.getId());
                 startActivity(intent);
@@ -118,6 +127,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 Integer id = event.getInt("id");
                 String title = event.getString("title");
                 String descr = event.getString("description_text");
+                String location = event.getString("location_name");
                 JSONArray instanceArray = event.getJSONArray("event_instances");
                 for(int z = 0; z < instanceArray.length(); ++z) {
                     JSONObject inst = instanceArray.getJSONObject(z);
@@ -125,10 +135,8 @@ public class MainMenuActivity extends AppCompatActivity {
                     start = "2020-10-20 11:00";//eventinst.getString("start");
                     end = "2020-10-20 12:00";//eventinst.getString("end");
                 }
-                myeventDB.insertEvents(id,start,end,title,descr,"","","");
+                myeventDB.insertEvents(id,start,end,title,descr,"",location,"");
             }
-
-            Toast.makeText(getApplicationContext(), "Inside the Thing", Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
