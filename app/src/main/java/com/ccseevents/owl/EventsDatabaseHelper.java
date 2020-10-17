@@ -13,8 +13,9 @@ import androidx.annotation.RequiresApi;
 public class EventsDatabaseHelper extends SQLiteOpenHelper
 {
     public static final String DATABASE_NAME = "myevents.db";
-    public static final String TABLE_NAME = "my_events";
-    public static final String TABLE_NAME1 = "all_events";
+    public static final String TABLE_NAME = "all_events";
+    public static final String TABLE_NAME1 = "my_events";
+    public static final String TABLE_NAME2 = "hide_events";
     public static final String COL_1 = "ID";
     public static final String COL_2 = "EVENTDATE_START";
     public static final String COL_3 = "EVENTDATE_END";
@@ -30,8 +31,9 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-       db.execSQL("create table "+TABLE_NAME+" ("+COL_1+" INTEGER PRIMARY KEY)");
-       db.execSQL("create table "+TABLE_NAME1+" (ID INTEGER PRIMARY KEY, EVENTDATE_START TEXT, EVENTDATE_END TEXT, TITLE TEXT, DESCRIPTION TEXT, HOST TEXT, LOCATION TEXT, RSVPLINK TEXT)");
+        db.execSQL("create table "+TABLE_NAME+" (ID INTEGER PRIMARY KEY, EVENTDATE_START TEXT, EVENTDATE_END TEXT, TITLE TEXT, DESCRIPTION TEXT, HOST TEXT, LOCATION TEXT, RSVPLINK TEXT)");
+        db.execSQL("create table "+TABLE_NAME1+" ("+COL_1+" INTEGER PRIMARY KEY)");
+        db.execSQL("create table "+TABLE_NAME2+" ("+COL_1+" INTEGER PRIMARY KEY)");
     }
 
     @Override
@@ -39,10 +41,12 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         // Drop older table if existed
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME1);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME2);
         // Create tables again
         onCreate(sqLiteDatabase);
     }
 
+    //All Data Table Functions
     public boolean insertEvents(Integer Id, String eventdate_start, String eventdate_end, String title, String description, String host, String location, String rsvplink) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -54,23 +58,23 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         contentValues.put(COL_6,host);
         contentValues.put(COL_7,location);
         contentValues.put(COL_8,rsvplink);
-        long result = db.insert(TABLE_NAME1,null,contentValues);
+        long result = db.insert(TABLE_NAME,null,contentValues);
         if (result == -1)
             return false;
         else
             return true;
     }
-
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public Cursor getAllData(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from "+ TABLE_NAME1 +" where eventDate_start>date('now') order by eventDate_start",null);
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location " +
+                "from "+ TABLE_NAME +" where eventDate_start>date('now') and ID not in (select ID from "+TABLE_NAME2+") order by eventDate_start",null);
         return res;
     }
     public boolean deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        long result = db.delete(TABLE_NAME1,null,null);
+        long result = db.delete(TABLE_NAME,null,null);
         if (result == -1)
             return false;
         else
@@ -79,14 +83,14 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     //My Events Table Functions
     public Cursor getMyEvents(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select a.ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from "+ TABLE_NAME1 +" a INNER JOIN "+TABLE_NAME+" b on a.ID=b.ID where eventDate_start>date('now') order by eventDate_start",null);
+        Cursor res = db.rawQuery("select a.ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from "+ TABLE_NAME +" a INNER JOIN "+TABLE_NAME1+" b on a.ID=b.ID where eventDate_start>date('now') order by eventDate_start",null);
         return res;
     }
     public boolean insertMyEvents(Integer Id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,Id);
-        long result = db.insert(TABLE_NAME,null,contentValues);
+        long result = db.insert(TABLE_NAME1,null,contentValues);
         if (result == -1)
             return false;
         else
@@ -96,7 +100,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,Id);
-        long result = db.delete(TABLE_NAME,COL_1+"="+Id,null);
+        long result = db.delete(TABLE_NAME1,COL_1+"="+Id,null);
         if (result == -1)
             return false;
         else
@@ -104,7 +108,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     }
     public boolean existsMyEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+ TABLE_NAME,null);
+        Cursor res = db.rawQuery("select * from "+ TABLE_NAME1,null);
         while (res.moveToNext()){
             int val = res.getInt(0);
             if (eventID == val) {
@@ -116,13 +120,25 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
 
     public Cursor getEventDate(Integer eventID){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H',eventDate_start),strftime('%M',eventDate_start),strftime('%H',eventDate_end),strftime('%M',eventDate_end),location  from "+ TABLE_NAME1+" where ID = "+eventID,null);
+        Cursor res = db.rawQuery("select strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H',eventDate_start),strftime('%M',eventDate_start),strftime('%H',eventDate_end),strftime('%M',eventDate_end),location  from "+ TABLE_NAME+" where ID = "+eventID,null);
         return res;
     }
+    //Featured Event
     public Cursor featuredEvent(){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from  "+ TABLE_NAME1 + " where eventDate_start>date('now') order by eventDate_start LIMIT 1",null);
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location from  "+ TABLE_NAME + " where eventDate_start>date('now') order by eventDate_start LIMIT 1",null);
         return res;
+    }
+    //Hide Events
+    public boolean insertHideEvents(Integer Id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,Id);
+        long result = db.insert(TABLE_NAME2,null,contentValues);
+        if (result == -1)
+            return false;
+        else
+            return true;
     }
 }
 
