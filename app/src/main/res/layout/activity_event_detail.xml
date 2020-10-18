@@ -21,23 +21,6 @@
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="1dp" />
 
-    <ToggleButton
-        android:id="@+id/toggleFavorite"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="350dp"
-        android:layout_marginLeft="350dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:textOff=""
-        android:textOn=""
-        android:background="@drawable/toggle_selector"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/adToolbar"
-        app:layout_constraintBottom_toBottomOf="@+id/adToolbar"
-    android:text="ToggleButton" />
-
     <LinearLayout
         android:layout_width="409dp"
         android:layout_height="wrap_content"
@@ -198,12 +181,6 @@
                 android:textColor="@color/ksuBlack" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/btn_calendar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Add to Calendar" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

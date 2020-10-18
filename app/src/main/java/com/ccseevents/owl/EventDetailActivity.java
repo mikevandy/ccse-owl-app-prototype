@@ -4,12 +4,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import java.util.Calendar;
 
@@ -18,27 +17,24 @@ import androidx.appcompat.widget.Toolbar;
 
 public class EventDetailActivity extends AppCompatActivity {
     public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    public int eID;
+    public String titleValue;
+    public String descriptionValue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_detail);
         Toolbar toolbar = (Toolbar)findViewById(R.id.adToolbar);
-        final Button btnCalendar = (Button)findViewById(R.id.btn_calendar);
-        final ToggleButton FavoriteButton = findViewById(R.id.toggleFavorite);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final Bundle bundle = getIntent().getExtras();
         //Check whether event has already been added to My Events and adjust button text
-        int eID = bundle.getInt("EVENTID");
-        boolean btnfavorited = myeventDB.existsMyEvents(eID);
-        if (btnfavorited) {
-            FavoriteButton.setChecked(true);
-        }
+        eID = bundle.getInt("EVENTID");
 
         // TITLE
-        final String titleValue = bundle.getString("TITLE");
+        titleValue = bundle.getString("TITLE");
         TextView titleTextView = (TextView)findViewById(R.id.titleText);
         titleTextView.setText(titleValue);
 
@@ -66,40 +62,47 @@ public class EventDetailActivity extends AppCompatActivity {
         locationTextView.setText(locationValue);
 
         // DESCRIPTION
-        final String descriptionValue = bundle.getString("DESCRIPTION");
+        descriptionValue = bundle.getString("DESCRIPTION");
         TextView descriptionTextView = (TextView)findViewById(R.id.descriptionText);
         descriptionTextView.setText(descriptionValue);
+    }
 
-        final int eventID = bundle.getInt("EVENTID");
-        FavoriteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                boolean favorited = myeventDB.existsMyEvents(eventID);
+
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:
+                finish();
+                return super.onOptionsItemSelected(item);
+            case R.id.option_favorite:
+                boolean favorited = myeventDB.existsMyEvents(eID);
                 if (favorited) {
-                    boolean isDeleted = myeventDB.deleteMyEvents(eventID);
+                    boolean isDeleted = myeventDB.deleteMyEvents(eID);
                     if (isDeleted) {
                         Toast.makeText(EventDetailActivity.this, "Removed from My Events", Toast.LENGTH_SHORT).show();
+                        item.setIcon(getResources().getDrawable(R.drawable.ic_favorite_unselected));
                     }
                     else{
                         Toast.makeText(EventDetailActivity.this, "Failed to Remove", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else{
-                    boolean isInserted = myeventDB.insertMyEvents(eventID);
+                    boolean isInserted = myeventDB.insertMyEvents(eID);
                     if (isInserted){
                         Toast.makeText(EventDetailActivity.this, "Added to My Events", Toast.LENGTH_SHORT).show();
+                        item.setIcon(getResources().getDrawable(R.drawable.ic_favorite_selected));
                     }
                     else{
                         Toast.makeText(EventDetailActivity.this, "Failed to Add", Toast.LENGTH_SHORT).show();
                     }
 
                 }
-            }
-        });
-        btnCalendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Cursor res = myeventDB.getEventDate(eventID);
+                return true;
+            case R.id.option_hide:
+                Toast.makeText(this, "Event Hidden",Toast.LENGTH_SHORT).show();
+                myeventDB.deleteMyEvents(eID);
+                return true;
+            case R.id.option_calendar:
+                Cursor res = myeventDB.getEventDate(eID);
                 int calday = 1;
                 int calmonth = 0;
                 int calyear = 2020;
@@ -108,9 +111,6 @@ public class EventDetailActivity extends AppCompatActivity {
                 int endhour = 1;
                 int endmin = 0;
                 String location = "";
-                if (res.getCount() == 0) {
-                    return;
-                }
                 while (res.moveToNext()){
                     calday = res.getInt(0);
                     calmonth = res.getInt(1)-1; //0 is Jan for Calendar, 1 is for Jan in DB so make adjustment here
@@ -141,16 +141,21 @@ public class EventDetailActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(EventDetailActivity.this, "No compatible App for Calendar", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
-
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish(); // close this activity and return to preview activity (if there is any)
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_eventlist,menu);
+        boolean btnfavorited = myeventDB.existsMyEvents(eID);
+        if (btnfavorited) {
+            menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_selected));
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 
 }
