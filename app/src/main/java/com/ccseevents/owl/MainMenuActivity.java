@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -27,8 +29,10 @@ public class MainMenuActivity extends AppCompatActivity {
         final Cursor res = myeventDB.featuredEvent();
         final MyViewModel myViewModel = new MyViewModel();
         String title = "";
+        String photourl = "";
         while (res.moveToNext()) {
             title = res.getString(7);
+            photourl = res.getString(11);
             myViewModel.setId(res.getInt(0));
             myViewModel.setDayOfWeek(res.getInt(1));
             myViewModel.setDay(res.getString(2));
@@ -39,7 +43,12 @@ public class MainMenuActivity extends AppCompatActivity {
             myViewModel.setTitle(res.getString(7));
             myViewModel.setDescription(res.getString(8));
             myViewModel.setHost(res.getString(9));
+            myViewModel.setLocation(res.getString(10));
+            myViewModel.setPhotoURL(res.getString(11));
         }
+        //Photo
+        ImageButton eventImage = findViewById(R.id.featuredEventBtn);
+        Picasso.get().load(photourl).into(eventImage);
         FeaturedEventTitle.setText(title);
 
 
@@ -73,6 +82,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 intent.putExtra("LOCATION",myViewModel.getLocation());
                 intent.putExtra("DESCRIPTION",myViewModel.getDescription());
                 intent.putExtra("EVENTID",myViewModel.getId());
+                intent.putExtra("PHOTOURL",myViewModel.getPhotoURL());
                 startActivity(intent);
             }
         });

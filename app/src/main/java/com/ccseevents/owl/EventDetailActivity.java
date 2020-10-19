@@ -7,8 +7,11 @@ import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
@@ -65,6 +68,12 @@ public class EventDetailActivity extends AppCompatActivity {
         descriptionValue = bundle.getString("DESCRIPTION");
         TextView descriptionTextView = (TextView)findViewById(R.id.descriptionText);
         descriptionTextView.setText(descriptionValue);
+
+        //Photo
+        String photoURL = bundle.getString("PHOTOURL");
+        ImageView eventImage = findViewById(R.id.eventImage);
+        Picasso.get().load(photoURL).into(eventImage);
+
     }
 
 
@@ -157,5 +166,4 @@ public class EventDetailActivity extends AppCompatActivity {
         }
         return true;
     }
-
 }

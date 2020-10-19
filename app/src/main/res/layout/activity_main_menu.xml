@@ -48,7 +48,7 @@
                 android:id="@+id/featuredEventBtn"
                 android:layout_width="300dp"
                 android:layout_height="163dp"
-                android:background="@drawable/campus" />
+                android:background="@color/ksuYellow" />
 
                 <TextView
                     android:id="@+id/FeaturedEventTitle"

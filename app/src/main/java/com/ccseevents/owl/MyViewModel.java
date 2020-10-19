@@ -21,6 +21,7 @@ public class MyViewModel {
     private String host;
     private String location;
     private boolean favorited;
+    private  String photourl;
     public MyViewModel() {}
 
     public MyViewModel(MyViewModel v) {
@@ -36,6 +37,7 @@ public class MyViewModel {
         this.host = v.host;
         this.location = v.location;
         this.favorited = v.favorited;
+        this.photourl = v.photourl;
     }
 
     public String getDayOfWeek() {
@@ -195,5 +197,13 @@ public class MyViewModel {
 
     public void setFavorite(final boolean favorited) {
         this.favorited = favorited;
+    }
+
+    public String getPhotoURL() {
+        return this.photourl;
+    }
+
+    public void setPhotoURL(final String photourl) {
+        this.photourl = photourl;
     }
 }

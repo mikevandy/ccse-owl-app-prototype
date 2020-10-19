@@ -54,6 +54,7 @@ public class MyEventsActivity extends AppCompatActivity {
                         intent.putExtra("LOCATION","The Atrium Building: Room 201 (Place holder)"); // TODO: bundle.getString("LOCATION");
                         intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
                         intent.putExtra("EVENTID",viewModelList.get(position).getId());
+                        intent.putExtra("PHOTOURL",viewModelList.get(position).getPhotoURL());
                         startActivity(intent);
                     }
 
@@ -95,6 +96,7 @@ public class MyEventsActivity extends AppCompatActivity {
                 myViewModel[i].setDescription(res.getString(8));
                 myViewModel[i].setHost(res.getString(9));
                 myViewModel[i].setLocation(res.getString(10));
+                myViewModel[i].setPhotoURL(res.getString(11));
                 myViewModel[i].setFavorite(myeventDB.existsMyEvents(eID));
                 myViewModelList.add(myViewModel[i]);
                 i++;

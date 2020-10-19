@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
                 String title = event.getString("title");
                 String descr = event.getString("description_text");
                 String location = event.getString("location_name");
+                String photourl = event.getString("photo_url");
                 JSONArray instanceArray = event.getJSONArray("event_instances");
                 for(int z = 0; z < instanceArray.length(); ++z) {
                     String start = "";
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                         start = substring(eventinst.getString("start"), 0, 19);
                         end = substring(eventinst.getString("end"), 0, 19);
                     }
-                    myeventDB.insertEvents(id,start,end,title,descr,"",location,"");
+                    myeventDB.insertEvents(id,start,end,title,descr,"",location,"",photourl);
                 }
 
             }

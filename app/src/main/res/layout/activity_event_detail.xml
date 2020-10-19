@@ -30,13 +30,14 @@
         tools:ignore="MissingConstraints">
 
         <ImageView
+            android:id="@+id/eventImage"
             android:layout_width="350dp"
             android:layout_height="200dp"
             android:layout_marginLeft="17dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="17dp"
             android:layout_marginBottom="5dp"
-            android:background="@drawable/students"/>
+            android:background="@android:color/white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
