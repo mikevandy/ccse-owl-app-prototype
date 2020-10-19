@@ -81,6 +81,20 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         else
             return true;
     }
+    public Cursor getEventDate(Integer eventID){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H',eventDate_start),strftime('%M',eventDate_start),strftime('%H',eventDate_end),strftime('%M',eventDate_end),location,photourl" +
+                "  from "+ TABLE_NAME+" where ID = "+eventID,null);
+        return res;
+    }
+    //Featured Event
+    public Cursor featuredEvent(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location,photourl" +
+                " from  "+ TABLE_NAME + " where eventDate_start>date('now') order by eventDate_start LIMIT 1",null);
+        return res;
+    }
+
     //My Events Table Functions
     public Cursor getMyEvents(){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -119,20 +133,6 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         }
         return false;
     }
-
-    public Cursor getEventDate(Integer eventID){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H',eventDate_start),strftime('%M',eventDate_start),strftime('%H',eventDate_end),strftime('%M',eventDate_end),location,photourl" +
-                "  from "+ TABLE_NAME+" where ID = "+eventID,null);
-        return res;
-    }
-    //Featured Event
-    public Cursor featuredEvent(){
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location,photourl" +
-                " from  "+ TABLE_NAME + " where eventDate_start>date('now') order by eventDate_start LIMIT 1",null);
-        return res;
-    }
     //Hide Events
     public boolean insertHideEvents(Integer Id) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -144,5 +144,27 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         else
             return true;
     }
+    public boolean deleteHideEvents(Integer Id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1,Id);
+        long result = db.delete(TABLE_NAME2,COL_1+"="+Id,null);
+        if (result == -1)
+            return false;
+        else
+            return true;
+    }
+    public boolean existsHideEvents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select count() from "+ TABLE_NAME2,null);
+        while (res.moveToNext()){
+            int val = res.getInt(0);
+            if (val > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
 

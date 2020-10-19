@@ -108,7 +108,7 @@ public class EventDetailActivity extends AppCompatActivity {
                 return true;
             case R.id.option_hide:
                 Toast.makeText(this, "Event Hidden",Toast.LENGTH_SHORT).show();
-                myeventDB.deleteMyEvents(eID);
+                myeventDB.insertHideEvents(eID);
                 return true;
             case R.id.option_calendar:
                 Cursor res = myeventDB.getEventDate(eID);
@@ -159,7 +159,7 @@ public class EventDetailActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_eventlist,menu);
+        inflater.inflate(R.menu.menu_eventdetail,menu);
         boolean btnfavorited = myeventDB.existsMyEvents(eID);
         if (btnfavorited) {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_selected));
