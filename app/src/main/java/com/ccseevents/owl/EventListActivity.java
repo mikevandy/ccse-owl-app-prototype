@@ -1,13 +1,16 @@
 package com.ccseevents.owl;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.RequiresApi;
@@ -19,11 +22,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class EventListActivity extends AppCompatActivity {
     private List<MyViewModel> viewModelList = new ArrayList<>();
     public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    public ImageButton CalView;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
+
+        CalView = (ImageButton)findViewById(R.id.cal_bttn);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.alToolbar);
         setSupportActionBar(toolbar);
@@ -37,6 +44,8 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
+
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -65,6 +74,13 @@ public class EventListActivity extends AppCompatActivity {
                 }
             })
         );
+
+        CalView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(EventListActivity.this, CalendarViewEventList.class));
+            }
+        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -53,7 +53,7 @@ public class MainMenuActivity extends AppCompatActivity {
 
 
 
-        EventList.setOnClickListener(new View.OnClickListener() {
+        EventList.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainMenuActivity.this, EventListActivity.class));
