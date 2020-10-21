@@ -134,6 +134,13 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         return false;
     }
     //Hide Events
+    public Cursor getHideEvents(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select a.ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location,photourl" +
+                " from "+ TABLE_NAME +" a INNER JOIN "+TABLE_NAME2+" b on a.ID=b.ID where eventDate_start>date('now') order by eventDate_start",null);
+        return res;
+    }
+
     public boolean insertHideEvents(Integer Id) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

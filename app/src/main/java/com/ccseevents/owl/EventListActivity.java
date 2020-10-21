@@ -1,16 +1,15 @@
 package com.ccseevents.owl;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import androidx.annotation.RequiresApi;
@@ -22,20 +21,26 @@ import androidx.recyclerview.widget.RecyclerView;
 public class EventListActivity extends AppCompatActivity {
     private List<MyViewModel> viewModelList = new ArrayList<>();
     public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
-    public ImageButton CalView;
-
+    String listType;
+    Cursor res;
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_list);
 
-        CalView = (ImageButton)findViewById(R.id.cal_bttn);
-
         Toolbar toolbar = (Toolbar)findViewById(R.id.alToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        final Bundle bundle = getIntent().getExtras();
+        listType = bundle.getString("LISTTYPE");
+        if (listType.equals("MYEVENTS")){
+            toolbar.setTitle("My Events");
+        }
+        else if (listType.equals("HIDEEVENTS")){
+            toolbar.setTitle("Hidden Events");
+        }
 
         viewModelList.addAll(generateSimpleList());
         MyAdapter adapter = new MyAdapter(viewModelList);
@@ -74,26 +79,36 @@ public class EventListActivity extends AppCompatActivity {
                 }
             })
         );
-
-        CalView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(EventListActivity.this, CalendarViewEventList.class));
-            }
-        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            finish();
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return super.onOptionsItemSelected(item);
+            case R.id.option_show:
+                Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
+                intent.putExtra("LISTTYPE","HIDEEVENTS");
+                startActivity(intent);
+                return true;
+            case R.id.option_calendarwidget:
+                startActivity(new Intent(EventListActivity.this, CalendarViewEventList.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     private List<MyViewModel> generateSimpleList() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
-        Cursor res = myeventDB.getAllData();
+        res = myeventDB.getAllData();
+        if (listType.equals("MYEVENTS")){
+            res = myeventDB.getMyEvents();
+        }
+        else if (listType.equals("HIDEEVENTS")){
+            res = myeventDB.getHideEvents();
+        }
         if (res.getCount() != 0) {
             MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
             int i = 0;
@@ -119,4 +134,16 @@ public class EventListActivity extends AppCompatActivity {
         }
         return myViewModelList;
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_eventlist,menu);
+        boolean hideEvents = myeventDB.existsHideEvents();
+        MenuItem register = menu.findItem(R.id.option_show);
+        register.setVisible(hideEvents);
+        return true;
+    }
+
+
 }

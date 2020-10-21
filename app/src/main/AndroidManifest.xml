@@ -13,7 +13,6 @@
         <activity android:name=".CalendarViewEventList"></activity>
         <activity android:name=".EventDetailActivity" />
         <activity android:name=".EventListActivity" />
-        <activity android:name=".MyEventsActivity" />
         <activity android:name=".MainMenuActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

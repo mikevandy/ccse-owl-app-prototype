@@ -58,6 +58,9 @@ public class EventDetailActivity extends AppCompatActivity {
         String toValue = bundle.getString("TIMETO");
         TextView timeTextView = (TextView)findViewById(R.id.timeText);
         timeTextView.setText(fromValue + " to " + toValue);
+        if(fromValue == toValue) {
+            timeTextView.setText("All Day");
+        }
 
         // LOCATION
         String locationValue = bundle.getString("LOCATION");
