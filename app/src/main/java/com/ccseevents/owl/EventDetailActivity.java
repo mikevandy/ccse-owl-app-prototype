@@ -110,8 +110,16 @@ public class EventDetailActivity extends AppCompatActivity {
                 }
                 return true;
             case R.id.option_hide:
-                Toast.makeText(this, "Event Hidden",Toast.LENGTH_SHORT).show();
-                myeventDB.insertHideEvents(eID);
+                boolean itemHide = myeventDB.eventisHidden(eID);
+                if (itemHide){
+                    Toast.makeText(this, "Event Shown",Toast.LENGTH_SHORT).show();
+                    myeventDB.deleteHideEvents(eID);
+                    item.setTitle("Hide Event");
+                }else{
+                    Toast.makeText(this, "Event Hidden",Toast.LENGTH_SHORT).show();
+                    myeventDB.insertHideEvents(eID);
+                    item.setTitle("Unhide Event");
+                }
                 return true;
             case R.id.option_calendar:
                 Cursor res = myeventDB.getEventDate(eID);
@@ -166,6 +174,10 @@ public class EventDetailActivity extends AppCompatActivity {
         boolean btnfavorited = myeventDB.existsMyEvents(eID);
         if (btnfavorited) {
             menu.getItem(0).setIcon(getResources().getDrawable(R.drawable.ic_favorite_selected));
+        }
+        boolean itemHide = myeventDB.eventisHidden(eID);
+        if (itemHide){
+            menu.getItem(1).setTitle("Unhide Event");
         }
         return true;
     }

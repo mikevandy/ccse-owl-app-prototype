@@ -102,21 +102,21 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
                 " from "+ TABLE_NAME +" a INNER JOIN "+TABLE_NAME1+" b on a.ID=b.ID where eventDate_start>date('now') order by eventDate_start",null);
         return res;
     }
-    public boolean insertMyEvents(Integer Id) {
+    public boolean insertMyEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,Id);
+        contentValues.put(COL_1,eventID);
         long result = db.insert(TABLE_NAME1,null,contentValues);
         if (result == -1)
             return false;
         else
             return true;
     }
-    public boolean deleteMyEvents(Integer Id) {
+    public boolean deleteMyEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,Id);
-        long result = db.delete(TABLE_NAME1,COL_1+"="+Id,null);
+        contentValues.put(COL_1,eventID);
+        long result = db.delete(TABLE_NAME1,COL_1+"="+eventID,null);
         if (result == -1)
             return false;
         else
@@ -141,21 +141,21 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         return res;
     }
 
-    public boolean insertHideEvents(Integer Id) {
+    public boolean insertHideEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,Id);
+        contentValues.put(COL_1,eventID);
         long result = db.insert(TABLE_NAME2,null,contentValues);
         if (result == -1)
             return false;
         else
             return true;
     }
-    public boolean deleteHideEvents(Integer Id) {
+    public boolean deleteHideEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,Id);
-        long result = db.delete(TABLE_NAME2,COL_1+"="+Id,null);
+        contentValues.put(COL_1,eventID);
+        long result = db.delete(TABLE_NAME2,COL_1+"="+eventID,null);
         if (result == -1)
             return false;
         else
@@ -167,6 +167,18 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         while (res.moveToNext()){
             int val = res.getInt(0);
             if (val > 0) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean eventisHidden(Integer eventID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+ TABLE_NAME2,null);
+        while (res.moveToNext()){
+            int val = res.getInt(0);
+            if (eventID == val) {
                 return true;
             }
         }
