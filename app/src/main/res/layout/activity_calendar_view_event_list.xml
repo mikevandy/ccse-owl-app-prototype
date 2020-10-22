@@ -3,14 +3,42 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".CalendarViewEventList">
+    android:layout_height="match_parent">
 
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="412dp"
-        android:layout_height="331dp"
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/caltoolbar"
+        android:layout_width="411dp"
+        android:layout_height="59dp"
+        android:background="@color/ksuBlack"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Event List Calendar"
+        app:titleTextColor="@color/ksuYellow" />
+
+    <CalendarView
+        android:id="@+id/calendarView2"
+        android:layout_width="404dp"
+        android:layout_height="319dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/caltoolbar" />
+
+    <ImageButton
+        android:id="@+id/ListBttn"
+        android:layout_width="34dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="360dp"
+        android:layout_marginLeft="360dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
