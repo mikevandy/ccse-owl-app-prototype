@@ -185,5 +185,11 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         return false;
     }
 
+    public Cursor getEventsOnDate(String date){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select ID,strftime('%w',eventDate_start),strftime('%d',eventDate_start),strftime('%m',eventDate_start),strftime('%Y',eventDate_start),strftime('%H:%M',eventDate_start),strftime('%H:%M',eventDate_end),title,description,host,location,photourl" +
+                " from "+ TABLE_NAME +" where eventDate_start>date('now') and ID not in (select ID from "+TABLE_NAME2+") and strftime('%Y-%m-%d',eventDate_start) = date order by eventDate_start",null);
+        return res;
+    }
 }
 
