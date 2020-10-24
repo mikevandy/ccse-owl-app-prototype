@@ -68,6 +68,7 @@ public class EventListActivity extends AppCompatActivity {
                     intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
                     intent.putExtra("EVENTID",viewModelList.get(position).getId());
                     intent.putExtra("PHOTOURL",viewModelList.get(position).getPhotoURL());
+                    intent.putExtra("LISTTYPE",listType);
                     startActivity(intent);
                 }
 
@@ -84,8 +85,15 @@ public class EventListActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
-                return super.onOptionsItemSelected(item);
+                if(listType.equals("HIDEEVENTS")){
+                    Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
+                    intent.putExtra("LISTTYPE","ALL");
+                    startActivity(intent);
+                }else {
+                    Intent menuIntent = new Intent(EventListActivity.this, MainMenuActivity.class);
+                    startActivity(menuIntent);
+                }
+                return true;
             case R.id.option_show:
                 Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
                 intent.putExtra("LISTTYPE","HIDEEVENTS");
@@ -138,10 +146,14 @@ public class EventListActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_eventlist,menu);
+        inflater.inflate(R.menu.menu_eventlist, menu);
         boolean hideEvents = myeventDB.existsHideEvents();
-        MenuItem register = menu.findItem(R.id.option_show);
-        register.setVisible(hideEvents);
+        MenuItem hiddenItems = menu.findItem(R.id.option_show);
+        hiddenItems.setVisible(false);
+        //Only have "Show Hidden Events" available on full event list
+        if (listType.equals("ALL")){
+            hiddenItems.setVisible(hideEvents);
+        }
         return true;
     }
 

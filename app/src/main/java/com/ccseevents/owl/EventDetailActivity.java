@@ -23,6 +23,7 @@ public class EventDetailActivity extends AppCompatActivity {
     public int eID;
     public String titleValue;
     public String descriptionValue;
+    public String listType;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,14 +78,18 @@ public class EventDetailActivity extends AppCompatActivity {
         ImageView eventImage = findViewById(R.id.eventImage);
         Picasso.get().load(photoURL).into(eventImage);
 
+        //List Type for Back Button
+        listType = bundle.getString("LISTTYPE");
     }
 
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                finish();
-                return super.onOptionsItemSelected(item);
+                Intent backIntent = new Intent(EventDetailActivity.this, EventListActivity.class);
+                backIntent.putExtra("LISTTYPE",listType);
+                startActivity(backIntent);
+                return true;
             case R.id.option_favorite:
                 boolean favorited = myeventDB.existsMyEvents(eID);
                 if (favorited) {
