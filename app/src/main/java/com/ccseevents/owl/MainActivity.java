@@ -80,12 +80,10 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject inst = instanceArray.getJSONObject(z);
                     JSONObject eventinst = inst.getJSONObject("event_instance");
                     Integer id = eventinst.getInt("id");
-                    Boolean allDay = eventinst.getBoolean("all_day");
-                    if (allDay) {
-                        start = substring(eventinst.getString("start"), 0, 19);
-                        end = start; //All Day Events don't always populate end
-                    }else {
-                        start = substring(eventinst.getString("start"), 0, 19);
+                    boolean isnull = eventinst.isNull("end");
+                    if(isnull){
+                        end = start; //End Date is not required, so we have to deal with nulls
+                    }else{
                         end = substring(eventinst.getString("end"), 0, 19);
                     }
                     myeventDB.insertEvents(id,start,end,title,descr,"",location,"",photourl);

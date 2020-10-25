@@ -29,7 +29,11 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
         myDayOfTheWeek.setText(viewModel.getDayOfWeek());
         myDayMonth.setText(viewModel.getDay() + " " + viewModel.getMonth());
         myTitle.setText(viewModel.getTitle());
-        myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " @ " + viewModel.getFromTime());
+        if(viewModel.getFromTime().equals("12:00AM")){
+            myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " - All Day");
+        }else {
+            myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " @ " + viewModel.getFromTime());
+        }
         myFavorite.setChecked(viewModel.getFavorite());
 
     }
