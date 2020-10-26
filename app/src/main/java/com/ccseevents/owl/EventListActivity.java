@@ -127,6 +127,7 @@ public class EventListActivity extends AppCompatActivity {
                 myViewModel[i].setLocation(res.getString(10));
                 myViewModel[i].setPhotoURL(res.getString(11));
                 myViewModel[i].setFavorite(eventDB.existsMyEvents(eID));
+                myViewModel[i].setHidden(eventDB.eventisHidden(eID));
                 myViewModelList.add(myViewModel[i]);
                 i++;
             }

@@ -15,6 +15,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     private TextView myTitle;
     private TextView myDateTime;
     private ToggleButton myFavorite;
+    private boolean isHidden;
     public MyViewHolder(final View itemView, final MyAdapter.OnItemClickListener listener) {
         super(itemView);
         myDayOfTheWeek = (TextView) itemView.findViewById(R.id.eventDateView);
@@ -59,6 +60,7 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
             myDateTime.setText(viewModel.getMonth() + " " + viewModel.getDay() + " @ " + viewModel.getFromTime());
         }
         myFavorite.setChecked(viewModel.getFavorite());
+        isHidden = viewModel.getHidden();
     }
 
     @Override
@@ -68,6 +70,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
 
     @Override
     public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-        contextMenu.add(this.getAbsoluteAdapterPosition(),0,0,"Hide/Show Event");
+        if(isHidden){
+            contextMenu.add(this.getAbsoluteAdapterPosition(),0,0,"Unhide Event");
+        }else{
+            contextMenu.add(this.getAbsoluteAdapterPosition(),0,0,"Hide Event");
+        }
     }
 }
