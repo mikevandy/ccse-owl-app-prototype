@@ -7,12 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -21,9 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class EventListActivity extends AppCompatActivity {
     private List<MyViewModel> viewModelList = new ArrayList<>();
-    public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
     String listType;
     Cursor res;
+
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+
         adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -72,9 +74,9 @@ public class EventListActivity extends AppCompatActivity {
             @Override
             public void toggleFav(int position) {
                 int eID = viewModelList.get(position).getId();
-                boolean favorited = myeventDB.existsMyEvents(eID);
+                boolean favorited = eventDB.existsMyEvents(eID);
                 if (favorited) {
-                    boolean isDeleted = myeventDB.deleteMyEvents(eID);
+                    boolean isDeleted = eventDB.deleteMyEvents(eID);
                     if (isDeleted) {
                         Toast.makeText(EventListActivity.this, "Removed from My Events", Toast.LENGTH_SHORT).show();
                     }
@@ -83,7 +85,7 @@ public class EventListActivity extends AppCompatActivity {
                     }
                 }
                 else{
-                    boolean isInserted = myeventDB.insertMyEvents(eID);
+                    boolean isInserted = eventDB.insertMyEvents(eID);
                     if (isInserted){
                         Toast.makeText(EventListActivity.this, "Added to My Events", Toast.LENGTH_SHORT).show();
                     }
@@ -94,6 +96,56 @@ public class EventListActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    private List<MyViewModel> generateSimpleList() {
+        List<MyViewModel> myViewModelList = new ArrayList<>();
+        res = eventDB.getAllData();
+        if (listType.equals("MYEVENTS")){
+            res = eventDB.getMyEvents();
+        }
+        else if (listType.equals("HIDEEVENTS")){
+            res = eventDB.getHideEvents();
+        }
+        if (res.getCount() != 0) {
+            MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
+            int i = 0;
+            while (res.moveToNext()){
+                myViewModel[i] = new MyViewModel();
+                int eID = res.getInt(0);
+                myViewModel[i].setId(eID);
+                myViewModel[i].setDayOfWeek(res.getInt(1));
+                myViewModel[i].setDay(res.getString(2));
+                myViewModel[i].setMonth(res.getInt(3));
+                myViewModel[i].setYear(res.getString(4));
+                myViewModel[i].setFromTime(res.getString(5));
+                myViewModel[i].setToTime(res.getString(6));
+                myViewModel[i].setTitle(res.getString(7));
+                myViewModel[i].setDescription(res.getString(8));
+                myViewModel[i].setHost(res.getString(9));
+                myViewModel[i].setLocation(res.getString(10));
+                myViewModel[i].setPhotoURL(res.getString(11));
+                myViewModel[i].setFavorite(eventDB.existsMyEvents(eID));
+                myViewModelList.add(myViewModel[i]);
+                i++;
+            }
+        }
+        return myViewModelList;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_eventlist, menu);
+        boolean hideEvents = eventDB.existsHideEvents();
+        MenuItem hiddenItems = menu.findItem(R.id.option_show);
+        hiddenItems.setVisible(false);
+        //Only have "Show Hidden Events" available on full event list
+        if (listType.equals("ALL")){
+            hiddenItems.setVisible(hideEvents);
+        }
+        return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -120,56 +172,29 @@ public class EventListActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    private List<MyViewModel> generateSimpleList() {
-        List<MyViewModel> myViewModelList = new ArrayList<>();
-        res = myeventDB.getAllData();
-        if (listType.equals("MYEVENTS")){
-            res = myeventDB.getMyEvents();
-        }
-        else if (listType.equals("HIDEEVENTS")){
-            res = myeventDB.getHideEvents();
-        }
-        if (res.getCount() != 0) {
-            MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
-            int i = 0;
-            while (res.moveToNext()){
-                myViewModel[i] = new MyViewModel();
-                int eID = res.getInt(0);
-                myViewModel[i].setId(eID);
-                myViewModel[i].setDayOfWeek(res.getInt(1));
-                myViewModel[i].setDay(res.getString(2));
-                myViewModel[i].setMonth(res.getInt(3));
-                myViewModel[i].setYear(res.getString(4));
-                myViewModel[i].setFromTime(res.getString(5));
-                myViewModel[i].setToTime(res.getString(6));
-                myViewModel[i].setTitle(res.getString(7));
-                myViewModel[i].setDescription(res.getString(8));
-                myViewModel[i].setHost(res.getString(9));
-                myViewModel[i].setLocation(res.getString(10));
-                myViewModel[i].setPhotoURL(res.getString(11));
-                myViewModel[i].setFavorite(myeventDB.existsMyEvents(eID));
-                myViewModelList.add(myViewModel[i]);
-                i++;
-            }
-        }
-        return myViewModelList;
-    }
-
+    
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_eventlist, menu);
-        boolean hideEvents = myeventDB.existsHideEvents();
-        MenuItem hiddenItems = menu.findItem(R.id.option_show);
-        hiddenItems.setVisible(false);
-        //Only have "Show Hidden Events" available on full event list
-        if (listType.equals("ALL")){
-            hiddenItems.setVisible(hideEvents);
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        int position = item.getGroupId();
+        int eID = viewModelList.get(position).getId();
+
+        switch (item.getItemId()){
+            case 0:
+                if(listType.equals("HIDEEVENTS")) {
+                    Toast.makeText(EventListActivity.this, "Event Shown", Toast.LENGTH_SHORT).show();
+                    eventDB.deleteHideEvents(eID);
+                }else{
+                    Toast.makeText(EventListActivity.this, "Event Hidden", Toast.LENGTH_SHORT).show();
+                    eventDB.insertHideEvents(eID);
+                }
+                Intent intent = new Intent(EventListActivity.this, EventListActivity.class);
+                intent.putExtra("LISTTYPE",listType);
+                startActivity(intent);
+                return true;
+            case 1:
+
+            default:
+                return super.onContextItemSelected(item);
         }
-        return true;
     }
-
-
 }
