@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject inst = instanceArray.getJSONObject(z);
                     JSONObject eventinst = inst.getJSONObject("event_instance");
                     Integer id = eventinst.getInt("id");
+                    start = substring(eventinst.getString("start"), 0, 19);
                     boolean isnull = eventinst.isNull("end");
                     if(isnull){
                         end = start; //End Date is not required, so we have to deal with nulls
