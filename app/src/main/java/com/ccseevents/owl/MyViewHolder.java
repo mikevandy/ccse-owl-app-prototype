@@ -3,25 +3,57 @@ package com.ccseevents.owl;
 import android.os.Build;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener,View.OnLongClickListener {
     private TextView myDayOfTheWeek;
     private TextView myDayMonth;
     private TextView myTitle;
     private TextView myDateTime;
     private ToggleButton myFavorite;
 
-    public MyViewHolder(final View itemView) {
+    public MyViewHolder(final View itemView, final MyAdapter.OnItemClickListener listener) {
         super(itemView);
         myDayOfTheWeek = (TextView) itemView.findViewById(R.id.eventDateView);
         myDayMonth = (TextView) itemView.findViewById(R.id.eventDayMonthView);
         myTitle = (TextView) itemView.findViewById(R.id.eventTitle);
         myDateTime = (TextView) itemView.findViewById(R.id.eventDateTime);
         myFavorite = (ToggleButton) itemView.findViewById(R.id.toggleFavorite);
+        itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.onItemClick(position);
+                    }
+                }
+            }
+        });
+        myFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (listener != null) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        listener.toggleFav(position);
+                    }
+                }
+            }
+        });
+
+        //Long Press
+        itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(v.getContext(), "Position is " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -41,5 +73,10 @@ public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClic
     @Override
     public void onClick(View v) {
 
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        return true;
     }
 }

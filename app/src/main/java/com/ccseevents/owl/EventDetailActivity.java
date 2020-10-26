@@ -90,9 +90,14 @@ public class EventDetailActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case android.R.id.home:
-                Intent backIntent = new Intent(EventDetailActivity.this, EventListActivity.class);
-                backIntent.putExtra("LISTTYPE",listType);
-                startActivity(backIntent);
+                if (listType.equals("FEATURED")){
+                    Intent backIntent = new Intent(EventDetailActivity.this, MainMenuActivity.class);
+                    startActivity(backIntent);
+                }else {
+                    Intent backIntent = new Intent(EventDetailActivity.this, EventListActivity.class);
+                    backIntent.putExtra("LISTTYPE", listType);
+                    startActivity(backIntent);
+                }
                 return true;
             case R.id.option_favorite:
                 boolean favorited = myeventDB.existsMyEvents(eID);

@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,37 +50,50 @@ public class EventListActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
-
-
-
-        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
-                @RequiresApi(api = Build.VERSION_CODES.O)
-                @Override
-                public void onItemClick(View view, int position) {
-                    Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
-                    intent.putExtra("TITLE",viewModelList.get(position).getTitle());
-                    intent.putExtra("HOST",viewModelList.get(position).getHost());
-                    intent.putExtra("MONTH",viewModelList.get(position).getMonth());
-                    intent.putExtra("DAY",viewModelList.get(position).getDay());
-                    intent.putExtra("YEAR",viewModelList.get(position).getYear());
-                    intent.putExtra("TIMEFROM",viewModelList.get(position).getFromTime());
-                    intent.putExtra("TIMETO",viewModelList.get(position).getToTime());
-                    intent.putExtra("LOCATION",viewModelList.get(position).getLocation());
-                    intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
-                    intent.putExtra("EVENTID",viewModelList.get(position).getId());
-                    intent.putExtra("PHOTOURL",viewModelList.get(position).getPhotoURL());
-                    intent.putExtra("LISTTYPE",listType);
-                    startActivity(intent);
+        adapter.setOnItemClickListener(new MyAdapter.OnItemClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onItemClick(int position) {
+                Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
+                intent.putExtra("TITLE",viewModelList.get(position).getTitle());
+                intent.putExtra("HOST",viewModelList.get(position).getHost());
+                intent.putExtra("MONTH",viewModelList.get(position).getMonth());
+                intent.putExtra("DAY",viewModelList.get(position).getDay());
+                intent.putExtra("YEAR",viewModelList.get(position).getYear());
+                intent.putExtra("TIMEFROM",viewModelList.get(position).getFromTime());
+                intent.putExtra("TIMETO",viewModelList.get(position).getToTime());
+                intent.putExtra("LOCATION",viewModelList.get(position).getLocation());
+                intent.putExtra("DESCRIPTION",viewModelList.get(position).getDescription());
+                intent.putExtra("EVENTID",viewModelList.get(position).getId());
+                intent.putExtra("PHOTOURL",viewModelList.get(position).getPhotoURL());
+                intent.putExtra("LISTTYPE",listType);
+                startActivity(intent);
+            }
+            @Override
+            public void toggleFav(int position) {
+                int eID = viewModelList.get(position).getId();
+                boolean favorited = myeventDB.existsMyEvents(eID);
+                if (favorited) {
+                    boolean isDeleted = myeventDB.deleteMyEvents(eID);
+                    if (isDeleted) {
+                        Toast.makeText(EventListActivity.this, "Removed from My Events", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(EventListActivity.this, "Failed to Remove", Toast.LENGTH_SHORT).show();
+                    }
                 }
+                else{
+                    boolean isInserted = myeventDB.insertMyEvents(eID);
+                    if (isInserted){
+                        Toast.makeText(EventListActivity.this, "Added to My Events", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                        Toast.makeText(EventListActivity.this, "Failed to Add", Toast.LENGTH_SHORT).show();
+                    }
 
-                @Override
-                public void onLongItemClick(View view, int position) {
-                    Intent intent = new Intent(EventListActivity.this, EventDetailActivity.class);
-                    intent.putExtra("TITLE",viewModelList.get(position).getTitle());
-                    startActivity(intent);
                 }
-            })
-        );
+            }
+        });
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {

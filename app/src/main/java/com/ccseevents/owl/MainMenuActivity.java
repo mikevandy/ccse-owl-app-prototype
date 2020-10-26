@@ -87,6 +87,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 intent.putExtra("DESCRIPTION",myViewModel.getDescription());
                 intent.putExtra("EVENTID",myViewModel.getId());
                 intent.putExtra("PHOTOURL",myViewModel.getPhotoURL());
+                intent.putExtra("LISTTYPE","FEATURED");
                 startActivity(intent);
             }
         });
