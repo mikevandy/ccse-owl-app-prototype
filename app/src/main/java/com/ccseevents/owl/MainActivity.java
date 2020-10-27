@@ -24,7 +24,7 @@ import static android.text.TextUtils.substring;
 
 public class MainActivity extends AppCompatActivity {
     private static int SPLASH_TIME_OUT = 500;
-    public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     void parseJsonData(String jsonString) {
         try {
-            myeventDB.deleteAllData();
+            eventDB.deleteAllData();
             JSONObject object = new JSONObject(jsonString);
             JSONArray eventsArray = object.getJSONArray("events");
             for(int i = 0; i < eventsArray.length(); ++i) {
@@ -80,15 +80,14 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject inst = instanceArray.getJSONObject(z);
                     JSONObject eventinst = inst.getJSONObject("event_instance");
                     Integer id = eventinst.getInt("id");
-                    Boolean allDay = eventinst.getBoolean("all_day");
-                    if (allDay) {
-                        start = substring(eventinst.getString("start"), 0, 19);
-                        end = start; //All Day Events don't always populate end
-                    }else {
-                        start = substring(eventinst.getString("start"), 0, 19);
+                    start = substring(eventinst.getString("start"), 0, 19);
+                    boolean isnull = eventinst.isNull("end");
+                    if(isnull){
+                        end = start; //End Date is not required, so we have to deal with nulls
+                    }else{
                         end = substring(eventinst.getString("end"), 0, 19);
                     }
-                    myeventDB.insertEvents(id,start,end,title,descr,"",location,"",photourl);
+                    eventDB.insertEvents(id,start,end,title,descr,"",location,"",photourl);
                 }
 
             }

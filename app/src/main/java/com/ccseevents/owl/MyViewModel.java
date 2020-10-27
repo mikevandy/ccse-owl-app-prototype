@@ -22,6 +22,7 @@ public class MyViewModel {
     private String location;
     private boolean favorited;
     private  String photourl;
+    private boolean isHidden;
     public MyViewModel() {}
 
     public MyViewModel(MyViewModel v) {
@@ -205,5 +206,13 @@ public class MyViewModel {
 
     public void setPhotoURL(final String photourl) {
         this.photourl = photourl;
+    }
+
+    public boolean getHidden() {
+        return this.isHidden;
+    }
+
+    public void setHidden(final boolean hidden) {
+        this.isHidden = hidden;
     }
 }

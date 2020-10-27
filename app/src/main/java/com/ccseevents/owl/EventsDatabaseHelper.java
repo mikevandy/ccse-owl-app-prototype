@@ -74,7 +74,6 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     }
     public boolean deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
         long result = db.delete(TABLE_NAME,null,null);
         if (result == -1)
             return false;
@@ -114,8 +113,6 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     }
     public boolean deleteMyEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,eventID);
         long result = db.delete(TABLE_NAME1,COL_1+"="+eventID,null);
         if (result == -1)
             return false;
@@ -153,8 +150,6 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     }
     public boolean deleteHideEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1,eventID);
         long result = db.delete(TABLE_NAME2,COL_1+"="+eventID,null);
         if (result == -1)
             return false;

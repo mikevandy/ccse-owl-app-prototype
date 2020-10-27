@@ -14,7 +14,7 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class MainMenuActivity extends AppCompatActivity {
-    public EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,7 @@ public class MainMenuActivity extends AppCompatActivity {
         ImageButton MyEvents = (ImageButton)findViewById(R.id.myEventBtn);
         TextView FeaturedEventTitle = (TextView)findViewById(R.id.FeaturedEventTitle);
 
-        final Cursor res = myeventDB.featuredEvent();
+        final Cursor res = eventDB.featuredEvent();
         final MyViewModel myViewModel = new MyViewModel();
         String title = "";
         String photourl = "";
@@ -87,6 +87,7 @@ public class MainMenuActivity extends AppCompatActivity {
                 intent.putExtra("DESCRIPTION",myViewModel.getDescription());
                 intent.putExtra("EVENTID",myViewModel.getId());
                 intent.putExtra("PHOTOURL",myViewModel.getPhotoURL());
+                intent.putExtra("LISTTYPE","FEATURED");
                 startActivity(intent);
             }
         });
