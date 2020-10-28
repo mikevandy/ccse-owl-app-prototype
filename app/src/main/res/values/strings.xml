@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">OWL</string>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColorPrimary">@color/ksuBlack</item>
+        <item name="android:textColor">@color/ksuBlack</item>
+    </style>
 </resources>
