@@ -7,6 +7,8 @@ import android.provider.CalendarContract;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,12 +20,16 @@ import java.util.Calendar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class EventDetailActivity extends AppCompatActivity {
+
+public class EventDetailActivity extends AppCompatActivity implements CommentDialogActivity.CommentDialogListener {
     public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
+
     public int eID;
     public String titleValue;
     public String descriptionValue;
     public String listType;
+    public Button addCommentButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,8 +90,26 @@ public class EventDetailActivity extends AppCompatActivity {
 
         //List Type for Back Button
         listType = bundle.getString("LISTTYPE");
+
+        //ADD Comment button
+        addCommentButton = findViewById(R.id.addCommentButton);
+        addCommentButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
     }
 
+    public void openDialog() {
+        CommentDialogActivity commentDialogActivity = new CommentDialogActivity();
+        commentDialogActivity.show(getSupportFragmentManager(), "comment dialog");
+    }
+
+    @Override
+    public void applyTexts(String name, String comment) {
+        //Set name and comment in the comments section in this view
+    }
 
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
