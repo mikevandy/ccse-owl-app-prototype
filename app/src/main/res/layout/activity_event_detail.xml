@@ -22,6 +22,7 @@
         tools:layout_editor_absoluteX="1dp" />
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -37,21 +38,21 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="17dp"
             android:layout_marginBottom="5dp"
-            android:background="@android:color/white"/>
+            android:background="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Title:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
+                android:textColor="@color/ksuBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/titleText"
@@ -74,8 +75,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Hosted by:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
+                android:textColor="@color/ksuBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/hostedByText"
@@ -98,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Date:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
+                android:textColor="@color/ksuBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/dateText"
@@ -122,8 +123,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Time:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
+                android:textColor="@color/ksuBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/timeText"
@@ -146,8 +147,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Location:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
+                android:textColor="@color/ksuBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/locationText"
@@ -163,16 +164,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingRight="12dp"
-            android:paddingTop="15dp">
+            android:paddingTop="15dp"
+            android:paddingRight="12dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Description:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
+                android:textColor="@color/ksuBlack"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/descriptionText"
@@ -183,19 +184,19 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="163dp"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingRight="12dp"
-            android:paddingTop="30dp">
+            android:paddingTop="30dp"
+            android:paddingRight="12dp">
 
             <Button
                 android:id="@+id/addCommentButton"
                 android:layout_width="118dp"
                 android:layout_height="wrap_content"
+                android:background="@color/ksuBlack"
                 android:text="Add Comment"
-                android:textColor="@color/ksuYellow"
-                android:background="@color/ksuBlack" />
+                android:textColor="@color/ksuYellow" />
 
         </LinearLayout>
 

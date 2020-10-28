@@ -44,7 +44,7 @@ public class CalendarViewEventList extends AppCompatActivity {
         CalendarView calendar = (CalendarView) findViewById(R.id.calendarView2);
         ListView = (ImageButton) findViewById(R.id.ListBttn);
 
-
+        //sets default date to the current date
         LocalDateTime ldt = LocalDateTime.now();
         DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
         String formatter = formmat1.format(ldt);
@@ -65,6 +65,7 @@ public class CalendarViewEventList extends AppCompatActivity {
 
         Toast.makeText(CalendarViewEventList.this, date, Toast.LENGTH_SHORT).show();
 
+        //sets the date variable to the selected date on the calendar
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
@@ -82,6 +83,7 @@ public class CalendarViewEventList extends AppCompatActivity {
             }
         });
 
+        //navigation button to get back to the event list view
         ListView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +109,6 @@ public class CalendarViewEventList extends AppCompatActivity {
                 intent.putExtra("DESCRIPTION", calModel.get(position).getDescription());
                 intent.putExtra("EVENTID", calModel.get(position).getId());
                 intent.putExtra("PHOTOURL", calModel.get(position).getPhotoURL());
-                //intent.putExtra("LISTTYPE",listType);
                 startActivity(intent);
             }
 
