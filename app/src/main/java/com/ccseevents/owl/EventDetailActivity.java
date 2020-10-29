@@ -8,13 +8,17 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,6 +33,9 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
     public String descriptionValue;
     public String listType;
     public Button addCommentButton;
+    public ArrayList<Comment> commentList;
+    public CommentListAdapter adapter;
+    public ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +106,19 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 openDialog();
             }
         });
+
+        listView = findViewById(R.id.commentsListView);
+        Comment comment1 = new Comment("John", "This is the first comment");
+        Comment comment2 = new Comment("Jack", "This is the second comment");
+
+        commentList = new ArrayList<>();
+        commentList.add(comment1);
+        commentList.add(comment2);
+
+        adapter = new CommentListAdapter(this, R.layout.comment_view_layout, commentList);
+        listView.setAdapter(adapter);
+
+        setListViewHeight();
     }
 
     public void openDialog() {
@@ -108,7 +128,27 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
 
     @Override
     public void applyTexts(String name, String comment) {
+        Comment newComment = new Comment(name, comment);
+        commentList.add(newComment);
+        adapter.notifyDataSetChanged();
+
+        setListViewHeight();
         //Set name and comment in the comments section in this view
+    }
+
+    private void setListViewHeight() {
+        int totalHeight = 0;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            View listItem = adapter.getView(i, null, listView);
+            listItem.measure(0, 0);
+            totalHeight += listItem.getMeasuredHeight();
+        }
+
+        totalHeight = totalHeight + 20;
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (adapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
     }
 
     public boolean onOptionsItemSelected(MenuItem item) {
