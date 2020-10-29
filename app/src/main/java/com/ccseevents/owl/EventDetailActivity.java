@@ -108,12 +108,7 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
         });
 
         listView = findViewById(R.id.commentsListView);
-        Comment comment1 = new Comment("John", "This is the first comment");
-        Comment comment2 = new Comment("Jack", "This is the second comment");
-
         commentList = new ArrayList<>();
-        commentList.add(comment1);
-        commentList.add(comment2);
 
         adapter = new CommentListAdapter(this, R.layout.comment_view_layout, commentList);
         listView.setAdapter(adapter);
