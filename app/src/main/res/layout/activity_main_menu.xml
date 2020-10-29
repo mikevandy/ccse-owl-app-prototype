@@ -7,6 +7,35 @@
     tools:context=".MainMenuActivity"
     android:background="@color/ksuYellow">
 
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainMenuActivity"
+
+        >
+
+    <include
+        layout="@layout/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <!-- note the android background color white
+    It changed the entire screen white. I may have to remove or
+    make it yellow. Also note the fitsSystem windows.-->
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/whiteColor"
+        android:fitsSystemWindows="true"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        app:menu="@menu/drawer_menu"
+        />
+
+
+
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView"
         android:layout_width="333dp"
@@ -114,5 +143,5 @@
 
         </LinearLayout>
     </HorizontalScrollView>
-
+    </androidx.drawerlayout.widget.DrawerLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
