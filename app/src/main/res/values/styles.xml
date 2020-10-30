@@ -10,5 +10,30 @@
         <item name="colorControlNormal">@color/ksuYellow</item>
     </style>
 
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="drawerArrowStyle">@style/DrawerColor</item>
+    </style>
+
+
+    <style name="MenuAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="drawerArrowStyle">@style/DrawerColor</item>
+    </style>
+
+
+    <style name="DrawerColor" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/whiteColor</item>
+     </style>
+
+
 
 </resources>

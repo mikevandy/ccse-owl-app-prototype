@@ -4,27 +4,52 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+
+import com.ccseevents.owl.navigation.calendar;
+import com.ccseevents.owl.navigation.facebookActivity;
+import com.ccseevents.owl.navigation.feedbackActivity;
+import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
-public class MainMenuActivity extends AppCompatActivity {
+public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
+    Toolbar toolbar;
+    DrawerLayout mDrawerLayout;
+    ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
 
-        ImageButton FeaturedEvent = (ImageButton)findViewById(R.id.featuredEventBtn);
-        ImageButton EventList = (ImageButton)findViewById(R.id.eventListBtn);
-        ImageButton MyEvents = (ImageButton)findViewById(R.id.myEventBtn);
-        TextView FeaturedEventTitle = (TextView)findViewById(R.id.FeaturedEventTitle);
+        //toolbar
+        toolbar = findViewById(R.id.toolBarHome);
+        setSupportActionBar(toolbar);
+        mDrawerLayout = findViewById(R.id.drawerLayout);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, toolbar, R.string.open, R.string.close);
+        mDrawerLayout.addDrawerListener(mDrawerToggle);
+        mDrawerToggle.syncState();
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
+        ImageButton FeaturedEvent = (ImageButton) findViewById(R.id.featuredEventBtn);
+        ImageButton EventList = (ImageButton) findViewById(R.id.eventListBtn);
+        ImageButton MyEvents = (ImageButton) findViewById(R.id.myEventBtn);
+        TextView FeaturedEventTitle = (TextView) findViewById(R.id.FeaturedEventTitle);
 
         final Cursor res = eventDB.featuredEvent();
         final MyViewModel myViewModel = new MyViewModel();
@@ -52,12 +77,11 @@ public class MainMenuActivity extends AppCompatActivity {
         FeaturedEventTitle.setText(title);
 
 
-
-        EventList.setOnClickListener( new View.OnClickListener() {
+        EventList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, EventListActivity.class);
-                intent.putExtra("LISTTYPE","ALL");
+                intent.putExtra("LISTTYPE", "ALL");
                 startActivity(intent);
             }
         });
@@ -66,7 +90,7 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, EventListActivity.class);
-                intent.putExtra("LISTTYPE","MYEVENTS");
+                intent.putExtra("LISTTYPE", "MYEVENTS");
                 startActivity(intent);
             }
         });
@@ -76,20 +100,58 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, EventDetailActivity.class);
-                intent.putExtra("TITLE",myViewModel.getTitle());
-                intent.putExtra("HOST",myViewModel.getHost());
-                intent.putExtra("MONTH",myViewModel.getMonth());
-                intent.putExtra("DAY",myViewModel.getDay());
-                intent.putExtra("YEAR",myViewModel.getYear());
-                intent.putExtra("TIMEFROM",myViewModel.getFromTime());
-                intent.putExtra("TIMETO",myViewModel.getToTime());
-                intent.putExtra("LOCATION",myViewModel.getLocation());
-                intent.putExtra("DESCRIPTION",myViewModel.getDescription());
-                intent.putExtra("EVENTID",myViewModel.getId());
-                intent.putExtra("PHOTOURL",myViewModel.getPhotoURL());
-                intent.putExtra("LISTTYPE","FEATURED");
+                intent.putExtra("TITLE", myViewModel.getTitle());
+                intent.putExtra("HOST", myViewModel.getHost());
+                intent.putExtra("MONTH", myViewModel.getMonth());
+                intent.putExtra("DAY", myViewModel.getDay());
+                intent.putExtra("YEAR", myViewModel.getYear());
+                intent.putExtra("TIMEFROM", myViewModel.getFromTime());
+                intent.putExtra("TIMETO", myViewModel.getToTime());
+                intent.putExtra("LOCATION", myViewModel.getLocation());
+                intent.putExtra("DESCRIPTION", myViewModel.getDescription());
+                intent.putExtra("EVENTID", myViewModel.getId());
+                intent.putExtra("PHOTOURL", myViewModel.getPhotoURL());
+                intent.putExtra("LISTTYPE", "FEATURED");
                 startActivity(intent);
             }
         });
     }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.nav_events) {
+            Intent intent = new Intent(MainMenuActivity.this, EventListActivity.class);
+            intent.putExtra("LISTTYPE", "ALL");
+            startActivity(intent);
+        }
+        if (id == R.id.nav_my_events) {
+
+            Intent intent = new Intent(MainMenuActivity.this, EventListActivity.class);
+            intent.putExtra("LISTTYPE", "MYEVENTS");
+            startActivity(intent);
+        }
+
+
+        if (id == R.id.nav_calendar) {
+            startActivity(new Intent(MainMenuActivity.this, CalendarViewEventList.class));
+        }
+
+        if (id == R.id.nav_feedback) {
+            startActivity(new Intent(MainMenuActivity.this, feedbackActivity.class));
+        }
+
+
+        if (id == R.id.nav_facebook) {
+            startActivity(new Intent(MainMenuActivity.this, facebookActivity.class));
+        }
+        mDrawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    public  void  onBackPressed(){
+        if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){ mDrawerLayout.closeDrawer(GravityCompat.START);} else { super.onBackPressed();}
+    }
+
+
 }

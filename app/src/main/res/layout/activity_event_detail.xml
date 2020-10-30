@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="false">
+
+
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -22,7 +29,6 @@
         tools:layout_editor_absoluteX="1dp" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -38,21 +44,21 @@
             android:layout_marginTop="5dp"
             android:layout_marginRight="17dp"
             android:layout_marginBottom="5dp"
-            android:background="@android:color/white" />
+            android:background="@android:color/white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="10dp">
+            android:paddingTop="10dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Title:  "
-                android:textColor="@color/ksuBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
             <TextView
                 android:id="@+id/titleText"
@@ -75,8 +81,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Hosted by:  "
-                android:textColor="@color/ksuBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
             <TextView
                 android:id="@+id/hostedByText"
@@ -99,8 +105,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Date:  "
-                android:textColor="@color/ksuBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
             <TextView
                 android:id="@+id/dateText"
@@ -123,8 +129,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Time:  "
-                android:textColor="@color/ksuBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
             <TextView
                 android:id="@+id/timeText"
@@ -147,8 +153,8 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Location:  "
-                android:textColor="@color/ksuBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
             <TextView
                 android:id="@+id/locationText"
@@ -164,16 +170,16 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:paddingTop="15dp"
-            android:paddingRight="12dp">
+            android:paddingRight="12dp"
+            android:paddingTop="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:text="Description:  "
-                android:textColor="@color/ksuBlack"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textColor="@color/ksuBlack" />
 
             <TextView
                 android:id="@+id/descriptionText"
@@ -184,22 +190,43 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="163dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingTop="30dp"
-            android:paddingRight="12dp">
+            android:orientation="horizontal"
+            android:paddingRight="12dp"
+            android:paddingTop="30dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="Comments"
+                android:textSize="20dp"
+                android:textColor="@color/ksuBlack" />
 
             <Button
                 android:id="@+id/addCommentButton"
-                android:layout_width="118dp"
+                android:layout_width="130dp"
                 android:layout_height="wrap_content"
-                android:background="@color/ksuBlack"
                 android:text="Add Comment"
-                android:textColor="@color/ksuYellow" />
+                android:textAlignment="center"
+                android:paddingRight="10dp"
+                android:textColor="@color/ksuYellow"
+                android:background="@color/ksuBlack" />
 
         </LinearLayout>
 
+        <ListView
+            android:id="@+id/commentsListView"
+            android:layout_width="409dp"
+            android:layout_height="fill_parent"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="30dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="584dp" />
+
     </LinearLayout>
 
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

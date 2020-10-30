@@ -35,16 +35,16 @@ public class CommentDialogActivity extends AppCompatDialogFragment {
         builder.setView(view).setTitle("Comment").setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = editTextName.getText().toString();
-                String comment = editTextComment.getText().toString();
 
-                listener.applyTexts(name, comment);
             }
         })
         .setPositiveButton("ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                String name = editTextName.getText().toString();
+                String comment = editTextComment.getText().toString();
 
+                listener.applyTexts(name, comment);
             }
         });
 
