@@ -134,7 +134,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
 
 
         if (id == R.id.nav_calendar) {
-            startActivity(new Intent(MainMenuActivity.this, calendar.class));
+            startActivity(new Intent(MainMenuActivity.this, CalendarViewEventList.class));
         }
 
         if (id == R.id.nav_feedback) {
