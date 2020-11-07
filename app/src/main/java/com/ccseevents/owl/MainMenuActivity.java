@@ -9,18 +9,16 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-
-import com.ccseevents.owl.navigation.calendar;
 import com.ccseevents.owl.navigation.facebookActivity;
 import com.ccseevents.owl.navigation.feedbackActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -55,26 +53,30 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         final MyViewModel myViewModel = new MyViewModel();
         String title = "";
         String photourl = "";
-        while (res.moveToNext()) {
-            title = res.getString(7);
-            photourl = res.getString(11);
-            myViewModel.setId(res.getInt(0));
-            myViewModel.setDayOfWeek(res.getInt(1));
-            myViewModel.setDay(res.getString(2));
-            myViewModel.setMonth(res.getInt(3));
-            myViewModel.setYear(res.getString(4));
-            myViewModel.setFromTime(res.getString(5));
-            myViewModel.setToTime(res.getString(6));
-            myViewModel.setTitle(res.getString(7));
-            myViewModel.setDescription(res.getString(8));
-            myViewModel.setHost(res.getString(9));
-            myViewModel.setLocation(res.getString(10));
-            myViewModel.setPhotoURL(res.getString(11));
+        if (res.getCount() != 0) {
+            while (res.moveToNext()) {
+                title = res.getString(7);
+                photourl = res.getString(11);
+                myViewModel.setId(res.getInt(0));
+                myViewModel.setDayOfWeek(res.getInt(1));
+                myViewModel.setDay(res.getString(2));
+                myViewModel.setMonth(res.getInt(3));
+                myViewModel.setYear(res.getString(4));
+                myViewModel.setFromTime(res.getString(5));
+                myViewModel.setToTime(res.getString(6));
+                myViewModel.setTitle(res.getString(7));
+                myViewModel.setDescription(res.getString(8));
+                myViewModel.setHost(res.getString(9));
+                myViewModel.setLocation(res.getString(10));
+                myViewModel.setPhotoURL(res.getString(11));
+            }
+            //Photo
+            ImageButton eventImage = findViewById(R.id.featuredEventBtn);
+            Picasso.get().load(photourl).into(eventImage);
+            FeaturedEventTitle.setText(title);
+        }else{
+            FeaturedEventTitle.setText("No Events Available");
         }
-        //Photo
-        ImageButton eventImage = findViewById(R.id.featuredEventBtn);
-        Picasso.get().load(photourl).into(eventImage);
-        FeaturedEventTitle.setText(title);
 
 
         EventList.setOnClickListener(new View.OnClickListener() {
@@ -99,20 +101,22 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainMenuActivity.this, EventDetailActivity.class);
-                intent.putExtra("TITLE", myViewModel.getTitle());
-                intent.putExtra("HOST", myViewModel.getHost());
-                intent.putExtra("MONTH", myViewModel.getMonth());
-                intent.putExtra("DAY", myViewModel.getDay());
-                intent.putExtra("YEAR", myViewModel.getYear());
-                intent.putExtra("TIMEFROM", myViewModel.getFromTime());
-                intent.putExtra("TIMETO", myViewModel.getToTime());
-                intent.putExtra("LOCATION", myViewModel.getLocation());
-                intent.putExtra("DESCRIPTION", myViewModel.getDescription());
-                intent.putExtra("EVENTID", myViewModel.getId());
-                intent.putExtra("PHOTOURL", myViewModel.getPhotoURL());
-                intent.putExtra("LISTTYPE", "FEATURED");
-                startActivity(intent);
+                if (res.getCount() != 0) {
+                    Intent intent = new Intent(MainMenuActivity.this, EventDetailActivity.class);
+                    intent.putExtra("TITLE", myViewModel.getTitle());
+                    intent.putExtra("HOST", myViewModel.getHost());
+                    intent.putExtra("MONTH", myViewModel.getMonth());
+                    intent.putExtra("DAY", myViewModel.getDay());
+                    intent.putExtra("YEAR", myViewModel.getYear());
+                    intent.putExtra("TIMEFROM", myViewModel.getFromTime());
+                    intent.putExtra("TIMETO", myViewModel.getToTime());
+                    intent.putExtra("LOCATION", myViewModel.getLocation());
+                    intent.putExtra("DESCRIPTION", myViewModel.getDescription());
+                    intent.putExtra("EVENTID", myViewModel.getId());
+                    intent.putExtra("PHOTOURL", myViewModel.getPhotoURL());
+                    intent.putExtra("LISTTYPE", "FEATURED");
+                    startActivity(intent);
+                }
             }
         });
     }
