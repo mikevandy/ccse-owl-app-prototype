@@ -1,11 +1,7 @@
 package com.ccseevents.owl;
 
-import android.content.ActivityNotFoundException;
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.view.Menu;
@@ -21,10 +17,8 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -209,6 +203,7 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 int endhour = 1;
                 int endmin = 0;
                 String location = "";
+                Boolean allday = false;
                 while (res.moveToNext()){
                     calday = res.getInt(0);
                     calmonth = res.getInt(1)-1; //0 is Jan for Calendar, 1 is for Jan in DB so make adjustment here
@@ -218,6 +213,7 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                     endhour = res.getInt(5);
                     endmin = res.getInt(6);
                     location = res.getString(7);
+                    allday = Boolean.getBoolean(res.getString(8));
                 }
 
                 Calendar start = Calendar.getInstance();
@@ -232,12 +228,12 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, start.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end.getTimeInMillis());
                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
-                //intent.putExtra(CalendarContract.Events.ALL_DAY, true);
+                intent.putExtra(CalendarContract.Events.ALL_DAY, allday);
 
                 if(intent.resolveActivity(getPackageManager())!=null){
                     startActivity(intent);
                 }else{
-                    Toast.makeText(EventDetailActivity.this, "No compatible App for Calendar", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EventDetailActivity.this, "No Compatible App for Calendar", Toast.LENGTH_SHORT).show();
                 }
                 return true;
             default:

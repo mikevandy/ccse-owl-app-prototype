@@ -80,6 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     JSONObject inst = instanceArray.getJSONObject(z);
                     JSONObject eventinst = inst.getJSONObject("event_instance");
                     Integer id = eventinst.getInt("id");
+                    Boolean allday = eventinst.getBoolean("all_day");
                     start = substring(eventinst.getString("start"), 0, 19);
                     boolean isnull = eventinst.isNull("end");
                     if(isnull){
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     }else{
                         end = substring(eventinst.getString("end"), 0, 19);
                     }
-                    eventDB.insertEvents(id,start,end,title,descr,"",location,"",photourl);
+                    eventDB.insertEvents(id,start,end,title,descr,"",location,"",photourl,allday);
                 }
 
             }
