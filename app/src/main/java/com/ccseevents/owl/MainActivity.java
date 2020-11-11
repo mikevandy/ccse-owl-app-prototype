@@ -44,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         c.add(Calendar.YEAR, 1);
         String enddt = new SimpleDateFormat( "yyyy-MM-dd" ).format(c.getTime() );
         String url = "https://calendar.kennesaw.edu/api/2/events?group_id=31678879585047&pp=100&end="+enddt;
+        //Full KSU Events List (for testing or future implementaions)
+        //String url = "https://calendar.kennesaw.edu/api/2/events?pp=100&page=1&days=90";
 
         StringRequest request = new StringRequest(url, new Response.Listener<String>() {
             @Override
