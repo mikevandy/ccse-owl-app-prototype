@@ -1,22 +1,329 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:fillViewport="false">
-
-
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/white"
-    tools:context=".EventDetailActivity">
+    tools:context=".EventDetailActivity"
+    android:background="@android:color/white">
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".EventDetailActivity">
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:fillViewport="true"
+            android:measureAllChildren="false"
+            android:scrollbars="vertical"
+            android:paddingTop="75dp"
+            android:paddingBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="0.05">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="0.9">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <ImageView
+                                android:id="@+id/eventImage"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:adjustViewBounds="true"
+                                android:background="@android:color/white"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="0.05">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="0.05">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="0.9">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Title:  "
+                                    android:textStyle="bold"
+                                    android:textColor="@color/ksuBlack"/>
+
+                                <TextView
+                                    android:id="@+id/titleText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Hello World!"
+                                    android:textColor="@color/ksuBlack"/>
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Hosted by:  "
+                                    android:textStyle="bold"
+                                    android:textColor="@color/ksuBlack" />
+
+                                <TextView
+                                    android:id="@+id/hostedByText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Hello World!"
+                                    android:textColor="@color/ksuBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Date:  "
+                                    android:textStyle="bold"
+                                    android:textColor="@color/ksuBlack" />
+
+                                <TextView
+                                    android:id="@+id/dateText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Hello World!"
+                                    android:textColor="@color/ksuBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Time:  "
+                                    android:textStyle="bold"
+                                    android:textColor="@color/ksuBlack" />
+
+                                <TextView
+                                    android:id="@+id/timeText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Hello World!"
+                                    android:textColor="@color/ksuBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Location:  "
+                                    android:textStyle="bold"
+                                    android:textColor="@color/ksuBlack" />
+
+                                <TextView
+                                    android:id="@+id/locationText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Hello World!"
+                                    android:textColor="@color/ksuBlack" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="10dp"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:maxLines="1"
+                                    android:text="Description:  "
+                                    android:textStyle="bold"
+                                    android:textColor="@color/ksuBlack" />
+
+                                <TextView
+                                    android:id="@+id/descriptionText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Hello World!"
+                                    android:textColor="@color/ksuBlack" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingTop="30dp"
+                                android:orientation="horizontal">
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="0.7">
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <TextView
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Comments"
+                                            android:textSize="20dp"
+                                            android:textColor="@color/ksuBlack" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                                <RelativeLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="fill_parent"
+                                    android:layout_weight="0.3">
+                                    <LinearLayout
+                                        android:layout_width="fill_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+                                        <Button
+                                            android:id="@+id/addCommentButton"
+                                            android:layout_width="fill_parent"
+                                            android:layout_height="wrap_content"
+                                            android:text="Add Comment"
+                                            android:layout_gravity="center"
+                                            android:textColor="@color/ksuYellow"
+                                            android:background="@color/ksuBlack" />
+                                    </LinearLayout>
+                                </RelativeLayout>
+
+                            </LinearLayout>
+
+                            <ListView
+                                android:id="@+id/commentsListView"
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="30dp"
+                                tools:layout_editor_absoluteX="1dp"
+                                tools:layout_editor_absoluteY="584dp" />
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="0.05">
+                        <LinearLayout
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </androidx.drawerlayout.widget.DrawerLayout>
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/adToolbar"
-        android:layout_width="409dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/ksuBlack"
         android:minHeight="?attr/actionBarSize"
@@ -26,207 +333,6 @@
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Large"
         app:titleTextColor="@color/ksuYellow"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="1dp" />
-
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingLeft="5dp"
-        android:paddingTop="75dp"
-        tools:ignore="MissingConstraints">
-
-        <ImageView
-            android:id="@+id/eventImage"
-            android:layout_width="350dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="17dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="17dp"
-            android:layout_marginBottom="5dp"
-            android:background="@android:color/white"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Title:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
-
-            <TextView
-                android:id="@+id/titleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Hello World!"
-                android:textColor="@color/ksuBlack" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Hosted by:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
-
-            <TextView
-                android:id="@+id/hostedByText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Hello World!"
-                android:textColor="@color/ksuBlack" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Date:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
-
-            <TextView
-                android:id="@+id/dateText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Hello World!"
-                android:textColor="@color/ksuBlack" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Time:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
-
-            <TextView
-                android:id="@+id/timeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Hello World!"
-                android:textColor="@color/ksuBlack" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingTop="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Location:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
-
-            <TextView
-                android:id="@+id/locationText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Hello World!"
-                android:textColor="@color/ksuBlack" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:paddingRight="12dp"
-            android:paddingTop="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="Description:  "
-                android:textStyle="bold"
-                android:textColor="@color/ksuBlack" />
-
-            <TextView
-                android:id="@+id/descriptionText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Hello World!"
-                android:textColor="@color/ksuBlack" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:paddingRight="12dp"
-            android:paddingTop="30dp">
-
-            <TextView
-                android:layout_width="250dp"
-                android:layout_height="wrap_content"
-                android:text="Comments"
-                android:textSize="20dp"
-                android:textColor="@color/ksuBlack" />
-
-            <Button
-                android:id="@+id/addCommentButton"
-                android:layout_width="130dp"
-                android:layout_height="wrap_content"
-                android:text="Add Comment"
-                android:textAlignment="center"
-                android:paddingRight="10dp"
-                android:textColor="@color/ksuYellow"
-                android:background="@color/ksuBlack" />
-
-        </LinearLayout>
-
-        <ListView
-            android:id="@+id/commentsListView"
-            android:layout_width="409dp"
-            android:layout_height="fill_parent"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="30dp"
-            tools:layout_editor_absoluteX="1dp"
-            tools:layout_editor_absoluteY="584dp" />
-
-    </LinearLayout>
-
-
+        tools:layout_editor_absoluteX="1dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>

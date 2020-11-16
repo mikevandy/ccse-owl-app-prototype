@@ -151,7 +151,7 @@ public class CalendarViewEventList extends AppCompatActivity {
         List<MyViewModel> myViewModelList = new ArrayList<>();
         res = myeventDB.getEventsOnDate(date);
         if (res.getCount() != 0) {
-            MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
+            MyViewModel[] myViewModel = new MyViewModel[res.getCount()];
             int i = 0;
             while (res.moveToNext()){
                 myViewModel[i] = new MyViewModel();

@@ -62,10 +62,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         contentValues.put(COL_9,photo);
         contentValues.put(COL_10,allday);
         long result = db.insert(TABLE_NAME,null,contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public Cursor getAllData(){
@@ -77,10 +74,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     public boolean deleteAllData() {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME,null,null);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     public Cursor getEventDate(Integer eventID){
         SQLiteDatabase db = this.getWritableDatabase();
@@ -108,18 +102,12 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,eventID);
         long result = db.insert(TABLE_NAME1,null,contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     public boolean deleteMyEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME1,COL_1+"="+eventID,null);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     public boolean existsMyEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -145,18 +133,12 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1,eventID);
         long result = db.insert(TABLE_NAME2,null,contentValues);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     public boolean deleteHideEvents(Integer eventID) {
         SQLiteDatabase db = this.getWritableDatabase();
         long result = db.delete(TABLE_NAME2,COL_1+"="+eventID,null);
-        if (result == -1)
-            return false;
-        else
-            return true;
+        return result != -1;
     }
     public boolean existsHideEvents() {
         SQLiteDatabase db = this.getWritableDatabase();

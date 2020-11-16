@@ -109,7 +109,7 @@ public class EventListActivity extends AppCompatActivity {
             res = eventDB.getHideEvents();
         }
         if (res.getCount() != 0) {
-            MyViewModel myViewModel[] = new MyViewModel[res.getCount()];
+            MyViewModel[] myViewModel = new MyViewModel[res.getCount()];
             int i = 0;
             while (res.moveToNext()){
                 myViewModel[i] = new MyViewModel();
