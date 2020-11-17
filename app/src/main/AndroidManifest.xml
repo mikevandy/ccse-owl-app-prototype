@@ -11,7 +11,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
-        <activity android:name=".navigation.feedbackActivity"></activity>
+        <activity android:name=".notifications.ReminderNotificationActivity" />
+        <activity android:name=".notifications.NotificationsActivity" />
+        <activity android:name=".navigation.feedbackActivity" />
         <activity android:name=".navigation.facebookActivity" />
         <activity android:name=".navigation.calendar" />
         <activity android:name=".CalendarViewEventList" />
@@ -25,6 +27,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <service android:name=".notifications.MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

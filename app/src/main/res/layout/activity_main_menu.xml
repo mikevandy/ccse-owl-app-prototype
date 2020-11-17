@@ -4,23 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainMenuActivity"
-    android:background="@color/ksuYellow">
+    android:background="@color/ksuYellow"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    tools:context=".MainMenuActivity">
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawerLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+
         tools:context=".MainMenuActivity">
 
         <include
             layout="@layout/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <!-- note the android background color white
-        It changed the entire screen white. I may have to remove or
-        make it yellow. Also note the fitsSystem windows.-->
+    It changed the entire screen white. I may have to remove or
+    make it yellow. Also note the fitsSystem windows.-->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
             android:layout_width="wrap_content"
@@ -28,190 +31,128 @@
             android:layout_gravity="start"
             android:background="@color/whiteColor"
             android:fitsSystemWindows="true"
-            android:scrollbarAlwaysDrawVerticalTrack="true"
-            app:menu="@menu/drawer_menu"/>
 
-        <ScrollView
+            android:scrollbarAlwaysDrawHorizontalTrack="false"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            app:menu="@menu/drawer_menu" />
+
+
+        <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:fillViewport="true"
-            android:measureAllChildren="false"
-            android:scrollbars="vertical"
-            android:paddingTop="90dp"
-            android:paddingBottom="20dp">
+            android:layout_width="333dp"
+            android:layout_height="639dp"
+            android:layout_marginStart="52dp"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="20dp"
+            android:isScrollContainer="false"
+            android:scrollbarAlwaysDrawVerticalTrack="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0">
 
             <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:isScrollContainer="false"
+                android:orientation="vertical"
+                android:paddingTop="30dp"
+                android:scrollbarAlwaysDrawHorizontalTrack="false"
+                android:scrollbarAlwaysDrawVerticalTrack="false"
+                android:verticalScrollbarPosition="right"
+                android:visibility="visible">
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_horizontal">
+                    android:orientation="vertical"
+                    android:paddingTop="30dp">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.05">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                        </LinearLayout>
-                    </RelativeLayout>
+                    <TextView
+                        android:id="@+id/FeatureEvent"
+                        android:layout_width="match_parent"
+                        android:layout_height="43dp"
+                        android:gravity="center"
+                        android:text="Featured Event"
+                        android:textColor="@color/ksuBlack"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.9">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/FeatureEvent"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Featured Event"
-                                android:textColor="@color/ksuBlack"
-                                android:textSize="24sp"
-                                android:textStyle="bold"/>
-                            <ImageButton
-                                android:id="@+id/featuredEventBtn"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:scaleType="fitXY"
-                                android:adjustViewBounds="true"
-                                android:background="@color/ksuYellow"/>
-                            <TextView
-                                android:id="@+id/FeaturedEventTitle"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Featured Event Title"
-                                android:textColor="@color/ksuBlack"
-                                android:textSize="24sp"/>
-                        </LinearLayout>
-                    </RelativeLayout>
+                    <ImageButton
+                        android:id="@+id/featuredEventBtn"
+                        android:layout_width="300dp"
+                        android:layout_height="163dp"
+                        android:background="@color/ksuYellow" />
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.05">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                        </LinearLayout>
-                    </RelativeLayout>
-
+                    <TextView
+                        android:id="@+id/FeaturedEventTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="43dp"
+                        android:gravity="center"
+                        android:text="Featured Event Title"
+                        android:textColor="@color/ksuBlack"
+                        android:textSize="24sp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:orientation="horizontal"
-                    android:gravity="center_horizontal">
+                    android:scrollbarAlwaysDrawVerticalTrack="false">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.05">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                        </LinearLayout>
-                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="148dp"
+                        android:layout_height="363dp"
+                        android:orientation="vertical"
+                        android:paddingTop="60dp">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.4">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/EventList"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Event List"
-                                android:textColor="@color/ksuBlack"
-                                android:textSize="24sp"
-                                android:textStyle="bold"/>
-                            <ImageButton
-                                android:id="@+id/eventListBtn"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/students"/>
-                        </LinearLayout>
-                    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/EventList"
+                            android:layout_width="164dp"
+                            android:layout_height="53dp"
+                            android:paddingLeft="20dp"
+                            android:text="Event List"
+                            android:textColor="@color/ksuBlack"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.1">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                        </LinearLayout>
-                    </RelativeLayout>
+                        <ImageButton
+                            android:id="@+id/eventListBtn"
+                            android:layout_width="143dp"
+                            android:layout_height="157dp"
+                            android:background="@drawable/students" />
+                    </LinearLayout>
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.4">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerInParent="true"
-                            android:orientation="vertical">
-                            <TextView
-                                android:id="@+id/MyEvents"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="My Events"
-                                android:textColor="@color/ksuBlack"
-                                android:textSize="24sp"
-                                android:textStyle="bold"/>
-                            <ImageButton
-                                android:id="@+id/myEventBtn"
-                                android:layout_width="fill_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:background="@drawable/students"/>
-                        </LinearLayout>
-                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="148dp"
+                        android:layout_height="363dp"
+                        android:orientation="vertical"
+                        android:paddingTop="60dp">
 
-                    <RelativeLayout
-                        android:layout_width="0dp"
-                        android:layout_height="fill_parent"
-                        android:layout_weight="0.05">
-                        <LinearLayout
-                            android:layout_width="fill_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                        </LinearLayout>
-                    </RelativeLayout>
+                        <TextView
+                            android:id="@+id/MyEvents"
+                            android:layout_width="164dp"
+                            android:layout_height="53dp"
+                            android:paddingLeft="20dp"
+                            android:text="My Events"
+                            android:textColor="@color/ksuBlack"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <ImageButton
+                            android:id="@+id/myEventBtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="157dp"
+                            android:background="@drawable/students" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-        </ScrollView>
-
+        </HorizontalScrollView>
     </androidx.drawerlayout.widget.DrawerLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

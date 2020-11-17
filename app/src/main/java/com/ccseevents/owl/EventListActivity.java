@@ -48,7 +48,7 @@ public class EventListActivity extends AppCompatActivity {
         MyAdapter adapter = new MyAdapter(viewModelList);
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.myRecyclerView);
-        recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);  //during build for release android request change from true to false
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
 

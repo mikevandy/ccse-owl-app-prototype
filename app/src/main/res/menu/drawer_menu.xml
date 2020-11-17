@@ -1,50 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
+
         <item
             android:id="@+id/nav_home"
-            android:title="Home"
             android:icon="@drawable/ic_baseline_nav_home_24"
-            />
+            android:title="Home" />
         <item
             android:id="@+id/nav_my_events"
-            android:title="My Events"
             android:icon="@drawable/ic_baseline_nav_my_events_24"
-            />
+            android:title="My Events" />
 
         <item
             android:id="@+id/nav_events"
-            android:title="Events"
             android:icon="@drawable/ic_baseline_nav_events_24"
-            />
+            android:title="Events" />
 
         <item
             android:id="@+id/nav_calendar"
-            android:title="Calendar"
             android:icon="@drawable/ic_baseline_nav_calendar_24"
-            />
-        <item
-            android:id="@+id/nav_notifications"
-            android:title="Notifications"
-            android:icon="@drawable/ic_baseline_nav_notifications_24"
-            />
+            android:title="Calendar" />
         <item
             android:id="@+id/nav_feedback"
-            android:title="Feedback"
             android:icon="@drawable/ic_baseline_nav_feedback_24"
-            />
+            android:title="Feedback" />
+
+        <item android:title="Notifications">
+            <menu>
+                <item
+                    android:id="@+id/nav_notifications"
+                    android:icon="@drawable/ic_baseline_nav_notifications_24"
+                    android:title="All Notifications" />
+                <item
+                    android:id="@+id/nav_reminders"
+                    android:icon="@drawable/ic_baseline_nav_notifications_24"
+                    android:title="Reminders" />
+            </menu>
+        </item>
+
         <item android:title="Social">
             <menu>
                 <item
                     android:id="@+id/nav_facebook"
-                    android:title="Facebook"
                     android:icon="@drawable/ic_baseline_nav_people_24"
-                    />
+                    android:title="Facebook" />
                 <item
                     android:id="@+id/nav_twitter"
-                    android:title="Twitter"
                     android:icon="@drawable/ic_baseline_nav_people_24"
-                    />
+                    android:title="Twitter" />
 
             </menu>
 
@@ -53,19 +56,16 @@
             <menu>
                 <item
                     android:id="@+id/nav_settings"
-                    android:title="Settings"
                     android:icon="@drawable/ic_baseline_nav_settings_24"
-                    />
+                    android:title="Settings" />
                 <item
                     android:id="@+id/nav_links"
-                    android:title="Links"
                     android:icon="@drawable/ic_baseline_nav_links_24"
-                    />
+                    android:title="Links" />
                 <item
                     android:id="@+id/nav_about"
-                    android:title="About"
                     android:icon="@drawable/ic_baseline_nav_settings_24"
-                    />
+                    android:title="About" />
 
 
             </menu>

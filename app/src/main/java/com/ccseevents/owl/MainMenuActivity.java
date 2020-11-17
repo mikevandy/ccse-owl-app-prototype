@@ -1,9 +1,12 @@
 package com.ccseevents.owl;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -11,7 +14,12 @@ import android.widget.TextView;
 
 import com.ccseevents.owl.navigation.facebookActivity;
 import com.ccseevents.owl.navigation.feedbackActivity;
+import com.ccseevents.owl.notifications.NotificationsActivity;
+import com.ccseevents.owl.notifications.ReminderNotificationActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -24,6 +32,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
+    public static final String  CHANNEL_ID = "101"; //Notifications Channel
     Toolbar toolbar;
     DrawerLayout mDrawerLayout;
     ActionBarDrawerToggle mDrawerToggle;
@@ -32,6 +41,8 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
+        createNotificationChannel();
 
         //toolbar
         toolbar = findViewById(R.id.toolBarHome);
@@ -119,6 +130,8 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
                 }
             }
         });
+        //gets Tokens from Firebase
+        getToken();
     }
 
     @Override
@@ -144,8 +157,12 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         if (id == R.id.nav_feedback) {
             startActivity(new Intent(MainMenuActivity.this, feedbackActivity.class));
         }
-
-
+        if (id == R.id.nav_notifications) {
+            startActivity(new Intent(MainMenuActivity.this, NotificationsActivity.class));
+        }
+        if (id == R.id.nav_reminders) {
+            startActivity(new Intent(MainMenuActivity.this, ReminderNotificationActivity.class));
+        }
         if (id == R.id.nav_facebook) {
             startActivity(new Intent(MainMenuActivity.this, facebookActivity.class));
         }
@@ -157,5 +174,32 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         if (mDrawerLayout.isDrawerOpen(GravityCompat.START)){ mDrawerLayout.closeDrawer(GravityCompat.START);} else { super.onBackPressed();}
     }
 
+    //get the applications token
+    private void getToken(){
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnSuccessListener(new OnSuccessListener<InstanceIdResult>() {
+                    @Override
+                    public void onSuccess(InstanceIdResult instanceIdResult) {
+                        Log.e("Token", instanceIdResult.getToken());
+                    }
+                });
+    }
+
+    //create a notification channel
+    private void createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence name = "Firebase_Notification_Channel";
+            String description = "This the channel to receive firebase notifications";
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, name, importance);
+            channel.setDescription(description);
+            // Register the channel with the system; you can't change the importance
+            // or other notification behaviors after this
+            NotificationManager notificationManager = getSystemService(NotificationManager.class);
+            notificationManager.createNotificationChannel(channel);
+        }
+    }
 
 }
