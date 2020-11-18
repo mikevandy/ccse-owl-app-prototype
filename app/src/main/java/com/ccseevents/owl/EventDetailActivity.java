@@ -203,6 +203,8 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 int calday = 1;
                 int calmonth = 0;
                 int calyear = 2020;
+                String startStr = "";
+                String endStr = "";
                 int starthour = 12;
                 int startmin = 0;
                 int endhour = 1;
@@ -213,14 +215,23 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                     calday = res.getInt(0);
                     calmonth = res.getInt(1)-1; //0 is Jan for Calendar, 1 is for Jan in DB so make adjustment here
                     calyear = res.getInt(2)-1;
-                    starthour = res.getInt(3);
+                    startStr = res.getString(3);
                     startmin = res.getInt(4);
-                    endhour = res.getInt(5);
+                    endStr = res.getString(5);
                     endmin = res.getInt(6);
                     location = res.getString(7);
                     allday = res.getString(8);
                 }
-
+                if(startStr.substring(0,1)== "0"){
+                    starthour = Integer.parseInt(startStr.substring(1,1));
+                }else{
+                    starthour = Integer.parseInt(startStr);
+                }
+                if(endStr.substring(0,1) == "0"){
+                    endhour = Integer.parseInt(endStr.substring(1,1));
+                }else{
+                    endhour = Integer.parseInt(endStr);
+                }
                 Calendar start = Calendar.getInstance();
                 start.set(calyear, calmonth, calday, starthour, startmin);
                 Calendar end = Calendar.getInstance();
