@@ -4,6 +4,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.provider.CalendarContract;
+import android.text.Html;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -86,8 +89,10 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
 
         // DESCRIPTION
         descriptionValue = bundle.getString("DESCRIPTION");
+        Spanned policy = Html.fromHtml(descriptionValue);
         TextView descriptionTextView = (TextView)findViewById(R.id.descriptionText);
-        descriptionTextView.setText(descriptionValue);
+        descriptionTextView.setText(policy);
+        descriptionTextView.setMovementMethod(LinkMovementMethod.getInstance());
 
         //Photo
         String photoURL = bundle.getString("PHOTOURL");
@@ -203,7 +208,7 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 int endhour = 1;
                 int endmin = 0;
                 String location = "";
-                Boolean allday = false;
+                String allday = "";
                 while (res.moveToNext()){
                     calday = res.getInt(0);
                     calmonth = res.getInt(1)-1; //0 is Jan for Calendar, 1 is for Jan in DB so make adjustment here
@@ -213,7 +218,7 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                     endhour = res.getInt(5);
                     endmin = res.getInt(6);
                     location = res.getString(7);
-                    allday = Boolean.getBoolean(res.getString(8));
+                    allday = res.getString(8);
                 }
 
                 Calendar start = Calendar.getInstance();
@@ -228,7 +233,9 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME, start.getTimeInMillis());
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME, end.getTimeInMillis());
                 intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location);
-                intent.putExtra(CalendarContract.Events.ALL_DAY, allday);
+                if (allday.equals("1")) {
+                    intent.putExtra(CalendarContract.Events.ALL_DAY, true);
+                }
 
                 if(intent.resolveActivity(getPackageManager())!=null){
                     startActivity(intent);
