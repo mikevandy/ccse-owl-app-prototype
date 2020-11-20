@@ -3,6 +3,7 @@ package com.ccseevents.owl;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.os.Build;
 import android.os.Bundle;
@@ -11,15 +12,20 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ccseevents.owl.navigation.facebookActivity;
 import com.ccseevents.owl.navigation.feedbackActivity;
 import com.ccseevents.owl.notifications.NotificationsActivity;
 import com.ccseevents.owl.notifications.ReminderNotificationActivity;
+import com.ccseevents.owl.notifications.SettingsNotifications;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.squareup.picasso.Picasso;
 
 import androidx.annotation.NonNull;
@@ -29,6 +35,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.preference.PreferenceManager;
 
 public class MainMenuActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public EventsDatabaseHelper eventDB = new EventsDatabaseHelper(this);
@@ -131,7 +138,14 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             }
         });
         //gets Tokens from Firebase
+       /* getToken();
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        Boolean value = sharedPreferences.getBoolean("notifications",true );
         getToken();
+        if(value==true){ subscribeToTopic("ccse");}
+        if(value==false){unsubscribeToTopic("ccse"); }
+*/
+
     }
 
     @Override
@@ -158,7 +172,7 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             startActivity(new Intent(MainMenuActivity.this, feedbackActivity.class));
         }
         if (id == R.id.nav_notifications) {
-            startActivity(new Intent(MainMenuActivity.this, NotificationsActivity.class));
+            startActivity(new Intent(MainMenuActivity.this, SettingsNotifications.class));
         }
         if (id == R.id.nav_reminders) {
             startActivity(new Intent(MainMenuActivity.this, ReminderNotificationActivity.class));
@@ -200,6 +214,38 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
             NotificationManager notificationManager = getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
+    }
+
+    public void unsubscribeToTopic(String topic2){
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(topic2)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //   String msg = getString(R.string.msg_subscribed);
+                        // if (!task.isSuccessful()) {
+                        //   msg = getString(R.string.msg_subscribe_failed);
+                        //      }
+                        //    Log.d(TAG, msg);
+                        Toast.makeText(MainMenuActivity.this, "UnSubcribed to topic", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    public void subscribeToTopic(String topic1){
+
+        FirebaseMessaging.getInstance().subscribeToTopic(topic1)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        //   String msg = getString(R.string.msg_subscribed);
+                        // if (!task.isSuccessful()) {
+                        //   msg = getString(R.string.msg_subscribe_failed);
+                        //      }
+                        //    Log.d(TAG, msg);
+                        Toast.makeText(MainMenuActivity.this, "Subcribed to topic", Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
 }
