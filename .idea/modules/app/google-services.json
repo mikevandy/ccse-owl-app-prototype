@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1028215029173",
+    "firebase_url": "https://owlapp-eb5ed.firebaseio.com",
+    "project_id": "owlapp-eb5ed",
+    "storage_bucket": "owlapp-eb5ed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028215029173:android:a61c780a4cff90c482edfc",
+        "android_client_info": {
+          "package_name": "com.ccseevents.owl"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028215029173-5d77e3f79ad5kqa32eage4pvalb4n3ol.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ccseevents.owl",
+            "certificate_hash": "5139e7474c57592aa87a2a9a8d71d5219cb57723"
+          }
+        },
+        {
+          "client_id": "1028215029173-nu5heq6fl0nakupguc5gmc7i15luri6i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOsWOm2BPnfjuClpr-Cz7ceIaAYpwKVuk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028215029173-nu5heq6fl0nakupguc5gmc7i15luri6i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
