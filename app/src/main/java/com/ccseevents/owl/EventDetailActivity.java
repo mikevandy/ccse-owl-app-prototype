@@ -22,6 +22,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -38,6 +39,8 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
     public ArrayList<Comment> commentList;
     public CommentListAdapter adapter;
     public ListView listView;
+    private EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    Cursor res;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +105,18 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
         //List Type for Back Button
         listType = bundle.getString("LISTTYPE");
 
+//        List<Comment> commesntsList = new ArrayList<>();
+//        res = eventDB.getEventComments(eID);
+//        if (res.getCount() != 0) {
+//            Comment[] eventComments = new Comment[res.getCount()];
+//            int i = 0;
+//            while (res.moveToNext()){
+//                eventComments[i] = new Comment(res.getString(0), res.getString(1));
+//                commesntsList.add(eventComments[i]);
+//                i++;
+//            }
+//        }
+
         //ADD Comment button
         addCommentButton = findViewById(R.id.addCommentButton);
         addCommentButton.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +144,13 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
     public void applyTexts(String name, String comment) {
         Comment newComment = new Comment(name, comment);
         commentList.add(newComment);
+
+        final Bundle bundle = getIntent().getExtras();
+        myeventDB.insertEventComment(bundle.getInt("EVENTID"), name, comment);
+
         adapter.notifyDataSetChanged();
+
+
 
         setListViewHeight();
         //Set name and comment in the comments section in this view
