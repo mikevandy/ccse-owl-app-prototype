@@ -5,6 +5,12 @@
         android:icon="@drawable/newcal"
         android:title="Calendar"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/option_allevents"
+        android:title="Show All Events"
+        app:showAsAction="never" />
+    <item android:id="@+id/option_myevents"
+        android:title="Show My Events"
+        app:showAsAction="never" />
     <item android:id="@+id/option_show"
         android:title="Show Hidden Events"
         app:showAsAction="never" />
