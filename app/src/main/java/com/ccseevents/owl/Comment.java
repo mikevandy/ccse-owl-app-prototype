@@ -2,11 +2,13 @@ package com.ccseevents.owl;
 
 public class Comment {
     private String name;
-    private String Comment;
+    private String comment;
+    private String date;
 
-    public Comment(String name, String comment) {
+    public Comment(String name, String comment, String date) {
         this.name = name;
-        Comment = comment;
+        this.comment = comment;
+        this.date = date;
     }
 
     public String getName() {
@@ -18,10 +20,18 @@ public class Comment {
     }
 
     public String getComment() {
-        return Comment;
+        return comment;
     }
 
     public void setComment(String comment) {
-        Comment = comment;
+        this.comment = comment;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

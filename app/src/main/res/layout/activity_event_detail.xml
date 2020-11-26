@@ -275,12 +275,12 @@
                                     android:layout_height="fill_parent"
                                     android:layout_weight="0.3">
                                     <LinearLayout
-                                        android:layout_width="fill_parent"
+                                        android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:orientation="vertical">
                                         <Button
                                             android:id="@+id/addCommentButton"
-                                            android:layout_width="fill_parent"
+                                            android:layout_width="150dp"
                                             android:layout_height="wrap_content"
                                             android:text="Add Comment"
                                             android:layout_gravity="center"

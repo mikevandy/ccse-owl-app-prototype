@@ -15,6 +15,7 @@
         android:id="@+id/editText_comment"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:layout_marginRight="10dp"
         android:hint="Enter commnet here"
         android:gravity="top"
         android:inputType="textMultiLine"
