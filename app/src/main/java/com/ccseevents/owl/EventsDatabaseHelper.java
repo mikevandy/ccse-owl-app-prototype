@@ -214,7 +214,7 @@ public class EventsDatabaseHelper extends SQLiteOpenHelper
     //Comment Table Functions
     public Cursor getEventComments(Integer eventID){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+ TABLE_NAME3 +" where ID = eventID order by commentdate",null);
+        Cursor res = db.rawQuery("select * from "+ TABLE_NAME3 +" where ID = "+eventID+" order by commentdate",null);
         return res;
     }
     public boolean insertEventComment(Integer eventID, String user, String comment) {
