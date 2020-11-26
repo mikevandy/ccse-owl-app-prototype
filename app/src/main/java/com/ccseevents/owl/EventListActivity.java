@@ -141,10 +141,20 @@ public class EventListActivity extends AppCompatActivity {
         inflater.inflate(R.menu.menu_eventlist, menu);
         boolean hideEvents = eventDB.existsHideEvents();
         MenuItem hiddenItems = menu.findItem(R.id.option_show);
-        hiddenItems.setVisible(false);
+        MenuItem myItems = menu.findItem(R.id.option_myevents);
+        MenuItem allItems = menu.findItem(R.id.option_allevents);
+        //Default "All Events" Menu items
+        hiddenItems.setVisible(hideEvents);
+        myItems.setVisible(true);
+        allItems.setVisible(false);
         //Only have "Show Hidden Events" available on full event list
-        if (listType.equals("ALL")){
-            hiddenItems.setVisible(hideEvents);
+        if (listType.equals("MYEVENTS")){
+            myItems.setVisible(false);
+            allItems.setVisible(true);
+        }else if (listType.equals("HIDEEVENTS")){
+            allItems.setVisible(true);
+            myItems.setVisible(true);
+            hiddenItems.setVisible(false);
         }
         return true;
     }
@@ -168,6 +178,16 @@ public class EventListActivity extends AppCompatActivity {
                 return true;
             case R.id.option_calendarwidget:
                 startActivity(new Intent(EventListActivity.this, CalendarViewEventList.class));
+                return true;
+            case R.id.option_myevents:
+                Intent myeventsintent = new Intent(EventListActivity.this, EventListActivity.class);
+                myeventsintent.putExtra("LISTTYPE","MYEVENTS");
+                startActivity(myeventsintent);
+                return true;
+            case R.id.option_allevents:
+                Intent allintent = new Intent(EventListActivity.this, EventListActivity.class);
+                allintent.putExtra("LISTTYPE","ALL");
+                startActivity(allintent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
