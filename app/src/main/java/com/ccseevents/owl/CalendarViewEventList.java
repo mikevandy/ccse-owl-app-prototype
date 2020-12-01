@@ -30,8 +30,8 @@ public class CalendarViewEventList extends AppCompatActivity {
 
     private ImageButton ListView;
     private RecyclerView rv;
-    private Button MonthButton;
     private EventsDatabaseHelper myeventDB = new EventsDatabaseHelper(this);
+    private Button MonthButton;
     public String date;
     private Cursor res;
     private String monthVal;
@@ -44,18 +44,20 @@ public class CalendarViewEventList extends AppCompatActivity {
         final List<MyViewModel> calModel = new ArrayList<>();
 
         setContentView(R.layout.activity_calendar_view_event_list);
-        rv = findViewById(R.id.recyclerView);
+        rv = (RecyclerView) findViewById(R.id.recyclerView);
 
         MonthButton = findViewById(R.id.monthButton);
 
 
-        final CalendarView calendar = findViewById(R.id.calendarView2);
-        ListView = findViewById(R.id.ListBttn);
+        final CalendarView calendar = (CalendarView) findViewById(R.id.calendarView2);
+        ListView = (ImageButton) findViewById(R.id.ListBttn);
 
         //sets default date to the current date
         LocalDateTime ldt = LocalDateTime.now();
         final DateTimeFormatter formmat1 = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH);
-        date = formmat1.format(ldt);
+        String formatter = formmat1.format(ldt);
+
+        date = formatter;
 
         LocalDate today = LocalDate.now();
         final int[] monthValue = {today.getMonthValue()};
@@ -63,6 +65,7 @@ public class CalendarViewEventList extends AppCompatActivity {
         calendar.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 month++;
                 if (month < 10 && dayOfMonth < 10) {
                     date = (year + "-" + "0" + month + "-" + "0" + dayOfMonth);
@@ -138,7 +141,6 @@ public class CalendarViewEventList extends AppCompatActivity {
                     }
                 });
             }
-
         });
 
         Toast.makeText(CalendarViewEventList.this, date, Toast.LENGTH_SHORT).show();
@@ -206,6 +208,7 @@ public class CalendarViewEventList extends AppCompatActivity {
             }
         });
 
+
         //navigation button to get back to the event list view
         ListView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -218,9 +221,9 @@ public class CalendarViewEventList extends AppCompatActivity {
 
     }
 
-    private List<MyViewModel> generateSimpleList() {
+    private List<MyViewModel> generateSimpleListMonth() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
-        res = myeventDB.getEventsOnDate(date);
+        res = myeventDB.getEventsforMonth(monthVal);
         if (res.getCount() != 0) {
             MyViewModel[] myViewModel = new MyViewModel[res.getCount()];
             int i = 0;
@@ -246,9 +249,10 @@ public class CalendarViewEventList extends AppCompatActivity {
         }
         return myViewModelList;
     }
-    private List<MyViewModel> generateSimpleListMonth() {
+
+    private List<MyViewModel> generateSimpleList() {
         List<MyViewModel> myViewModelList = new ArrayList<>();
-        res = myeventDB.getEventsforMonth(monthVal);
+        res = myeventDB.getEventsOnDate(date);
         if (res.getCount() != 0) {
             MyViewModel[] myViewModel = new MyViewModel[res.getCount()];
             int i = 0;
