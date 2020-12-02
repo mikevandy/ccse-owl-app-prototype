@@ -59,6 +59,14 @@ public class CalendarViewEventList extends AppCompatActivity {
 
         date = formatter;
         calModel.addAll(generateSimpleList());
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        rv.setHasFixedSize(true);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        rv.setLayoutManager(layoutManager);
+
+        final MyAdapter adapter = new MyAdapter(calModel);
+        rv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         LocalDate today = LocalDate.now();
         final int[] monthValue = {today.getMonthValue()};
@@ -86,7 +94,7 @@ public class CalendarViewEventList extends AppCompatActivity {
                     calModel.addAll(generateSimpleList());
                 }
                 monthValue[0] = month;
-                Toast.makeText(CalendarViewEventList.this, date, Toast.LENGTH_SHORT).show();
+               // Toast.makeText(CalendarViewEventList.this, date, Toast.LENGTH_SHORT).show();
 
                 final LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                 rv.setHasFixedSize(true);
