@@ -58,6 +58,7 @@ public class CalendarViewEventList extends AppCompatActivity {
         String formatter = formmat1.format(ldt);
 
         date = formatter;
+        calModel.addAll(generateSimpleList());
 
         LocalDate today = LocalDate.now();
         final int[] monthValue = {today.getMonthValue()};
