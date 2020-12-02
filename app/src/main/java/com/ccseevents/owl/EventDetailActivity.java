@@ -24,7 +24,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -182,7 +181,9 @@ public class EventDetailActivity extends AppCompatActivity implements CommentDia
                 if (listType.equals("FEATURED")){
                     Intent backIntent = new Intent(EventDetailActivity.this, MainMenuActivity.class);
                     startActivity(backIntent);
-                }else {
+                }else if (listType.equals("CALENDAR")){
+                   startActivity(new Intent(EventDetailActivity.this, CalendarViewEventList.class));
+                }else{
                     Intent backIntent = new Intent(EventDetailActivity.this, EventListActivity.class);
                     backIntent.putExtra("LISTTYPE", listType);
                     startActivity(backIntent);

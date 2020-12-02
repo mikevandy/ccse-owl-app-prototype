@@ -1,11 +1,5 @@
 package com.ccseevents.owl;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Build;
@@ -18,10 +12,15 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
 public class CalendarViewEventList extends AppCompatActivity {
@@ -102,6 +101,7 @@ public class CalendarViewEventList extends AppCompatActivity {
                         intent.putExtra("DESCRIPTION", calModel.get(position).getDescription());
                         intent.putExtra("EVENTID", calModel.get(position).getId());
                         intent.putExtra("PHOTOURL", calModel.get(position).getPhotoURL());
+                        intent.putExtra("LISTTYPE","CALENDAR");
                         startActivity(intent);
                     }
 
