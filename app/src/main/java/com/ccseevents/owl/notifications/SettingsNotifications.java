@@ -3,6 +3,8 @@ package com.ccseevents.owl.notifications;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import static com.ccseevents.owl.R.menu.settings_items;
 
 public class SettingsNotifications extends AppCompatActivity {
 
@@ -43,6 +47,14 @@ public class SettingsNotifications extends AppCompatActivity {
         if(value==false){unsubscribeToTopic("ccse"); }
 
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(settings_items, menu);
+        return true;
+    }
+
+
 
     public static class SettingsFragment extends PreferenceFragmentCompat {
         @Override
@@ -50,6 +62,8 @@ public class SettingsNotifications extends AppCompatActivity {
             setPreferencesFromResource(R.xml.root_preferences, rootKey);
         }
     }
+
+
 
     private void getToken(){
         FirebaseInstanceId.getInstance().getInstanceId()

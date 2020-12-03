@@ -14,6 +14,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ccseevents.owl.navigation.Comments_Nav;
+import com.ccseevents.owl.navigation.Linkedin;
+import com.ccseevents.owl.navigation.SendEventsNav;
+import com.ccseevents.owl.navigation.Website_Nav;
 import com.ccseevents.owl.navigation.facebookActivity;
 import com.ccseevents.owl.navigation.feedbackActivity;
 import com.ccseevents.owl.notifications.NotificationsActivity;
@@ -171,14 +175,31 @@ public class MainMenuActivity extends AppCompatActivity implements NavigationVie
         if (id == R.id.nav_feedback) {
             startActivity(new Intent(MainMenuActivity.this, feedbackActivity.class));
         }
-        if (id == R.id.nav_notifications) {
+        if (id == R.id.nav_settings) {
             startActivity(new Intent(MainMenuActivity.this, SettingsNotifications.class));
+        }
+
+        if (id == R.id.nav_updates) {
+            startActivity(new Intent(MainMenuActivity.this, NotificationsActivity.class));
         }
         if (id == R.id.nav_reminders) {
             startActivity(new Intent(MainMenuActivity.this, ReminderNotificationActivity.class));
         }
+        if (id == R.id.nav_linked_in) {
+            startActivity(new Intent(MainMenuActivity.this, Linkedin.class));
+        }
+
         if (id == R.id.nav_facebook) {
             startActivity(new Intent(MainMenuActivity.this, facebookActivity.class));
+        }
+        if (id == R.id.nav_notifications_server) {
+            startActivity(new Intent(MainMenuActivity.this, SendEventsNav.class));
+        }
+        if (id == R.id.nav_feedback_site) {
+            startActivity(new Intent(MainMenuActivity.this, Comments_Nav.class));
+        }
+        if (id == R.id.nav_ccse_events) {
+            startActivity(new Intent(MainMenuActivity.this, Website_Nav.class));
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

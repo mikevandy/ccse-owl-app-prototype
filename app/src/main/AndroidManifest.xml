@@ -11,9 +11,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
+        <activity android:name=".navigation.Website_Nav"></activity>
+        <activity android:name=".navigation.Comments_Nav" />
+        <activity android:name=".navigation.SendEventsNav" />
+        <activity android:name=".navigation.Linkedin" />
         <activity
             android:name=".notifications.SettingsNotifications"
-            android:label="@string/title_activity_settings_notifications"></activity>
+            android:label="@string/title_activity_settings_notifications" />
         <activity android:name=".notifications.ReminderNotificationActivity" />
         <activity android:name=".notifications.NotificationsActivity" />
         <activity android:name=".navigation.feedbackActivity" />
@@ -36,6 +40,10 @@
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
+        <service
+            android:name=".notifications.NotificationJobService"
+            android:exported="true"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
     </application>
 
 </manifest>

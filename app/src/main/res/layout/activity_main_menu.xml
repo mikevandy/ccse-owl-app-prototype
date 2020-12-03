@@ -19,14 +19,18 @@
         <include
             layout="@layout/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+
+            />
 
         <!-- note the android background color white
     It changed the entire screen white. I may have to remove or
-    make it yellow. Also note the fitsSystem windows.-->
+    make it yellow. Also note the fitsSystem windows
+    changed android layout width from match_parent to 150dp to decrease confusion on where to press on -
+    navigation drawer-->
         <com.google.android.material.navigation.NavigationView
             android:id="@+id/nav_view"
-            android:layout_width="wrap_content"
+            android:layout_width="225dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@color/whiteColor"

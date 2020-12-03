@@ -2,6 +2,11 @@
     <string name="app_name">OWL</string>
     <string name="open">open</string>
     <string name="close">close</string>
+    <string name="job_service">CCSE Reminder</string>
+    <string name="job_running">This is a CCSE Event Reminder</string>
+    <string name="job_service_notification">Job Service Notification</string>
+    <string name="notification_channel_description">Notifications from Job Service</string>
+    <string name="jobs_canceled">Jobs Cancelled</string>
 
     <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/ksuBlack</item>

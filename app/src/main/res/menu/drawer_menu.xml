@@ -28,9 +28,14 @@
         <item android:title="Notifications">
             <menu>
                 <item
-                    android:id="@+id/nav_notifications"
+                    android:id="@+id/nav_settings"
+                    android:icon="@drawable/ic_baseline_nav_settings_24"
+                    android:title="Settings" />
+
+                <item
+                    android:id="@+id/nav_updates"
                     android:icon="@drawable/ic_baseline_nav_notifications_24"
-                    android:title="All Notifications" />
+                    android:title="Updates" />
                 <item
                     android:id="@+id/nav_reminders"
                     android:icon="@drawable/ic_baseline_nav_notifications_24"
@@ -38,39 +43,35 @@
             </menu>
         </item>
 
-        <item android:title="Social">
+        <item android:title="Links">
             <menu>
+
+                <item
+                    android:id="@+id/nav_linked_in"
+                    android:icon="@drawable/ic_baseline_nav_people_24"
+                    android:title="Linked IN" />
+
                 <item
                     android:id="@+id/nav_facebook"
                     android:icon="@drawable/ic_baseline_nav_people_24"
                     android:title="Facebook" />
                 <item
-                    android:id="@+id/nav_twitter"
-                    android:icon="@drawable/ic_baseline_nav_people_24"
-                    android:title="Twitter" />
-
-            </menu>
-
-        </item>
-        <item android:title="Controls">
-            <menu>
-                <item
-                    android:id="@+id/nav_settings"
-                    android:icon="@drawable/ic_baseline_nav_settings_24"
-                    android:title="Settings" />
-                <item
-                    android:id="@+id/nav_links"
+                    android:id="@+id/nav_notifications_server"
                     android:icon="@drawable/ic_baseline_nav_links_24"
-                    android:title="Links" />
+                    android:title="Send Notifications" />
                 <item
-                    android:id="@+id/nav_about"
-                    android:icon="@drawable/ic_baseline_nav_settings_24"
-                    android:title="About" />
-
+                    android:id="@+id/nav_feedback_site"
+                    android:icon="@drawable/ic_baseline_nav_links_24"
+                    android:title="See Feedback" />
+                <item
+                    android:id="@+id/nav_ccse_events"
+                    android:icon="@drawable/ic_baseline_nav_links_24"
+                    android:title="Website" />
 
             </menu>
 
         </item>
+
 
 
     </group>

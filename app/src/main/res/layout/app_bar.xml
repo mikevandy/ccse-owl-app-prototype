@@ -5,16 +5,32 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+<!--    app:title=" " Place OWL inside quotes instead of space if necessary-->
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolBarHome"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/toolBarHome"
-        app:title="OWL"
-        app:titleTextColor="@color/whiteColor"
-        android:elevation="6dp"
-        android:background="@drawable/tool_bar_style"
         android:layout_margin="4dp"
-        />
+        android:background="@drawable/tool_bar_style"
+        android:elevation="6dp"
+        app:title=" "
+        app:titleTextColor="@color/whiteColor" />
+    <!-- app:title="OWL" //ADD APPBAR TITLE ABOVE-->
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        android:gravity="center"
+
+        android:padding="20dp"
+        android:text="OWL"
+        android:textColor="#FFFFFF"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
 
     <FrameLayout
         android:id="@+id/frame_layout"
